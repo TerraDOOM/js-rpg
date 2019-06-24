@@ -79,7 +79,7 @@ function printClass() {
             break;
     }
     
-    player = new Man(name, type, hp, defence, speed, strength, attack);
+    player = new Player(name, type, hp, defence, speed, strength, attack);
     eventSetup();
     console.log(player.attack);//first test
 }
@@ -133,7 +133,7 @@ function doAction(action) {
 
 // do the event setup shit
 function eventSetup() {
-    monster = generateMonster();
+    generateMonster();
     // TODO: change to event layout...
     currentEvent = "combat";
 }
@@ -147,7 +147,10 @@ function runAway() {
         generateEvent();
     }
 }
-
+function generateMonster(){
+    monster = new Monster();
+    currentEvent = "combat";
+}
 function playerStatus() {
     if (player.hp <= 0) {
         console.log("you lost lmao fuck you");
