@@ -135,7 +135,6 @@ function doAction(action) {
 function eventSetup() {
     generateMonster();
     // TODO: change to event layout...
-    currentEvent = "combat";
 }
 
 function runAway() {
