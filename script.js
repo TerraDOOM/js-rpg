@@ -3,6 +3,7 @@ let monster = "";
 let currentEvent = "";
 //this is the big git test haha i'm so fucking funny i hate my life 
 // but it worked out uwu
+//here is the funny test haha
 class Man {
     //constructor
     constructor(name, type, hp, defence, speed, strength, attack) {
@@ -13,10 +14,31 @@ class Man {
         this.defence = defence;
         this.speed = speed;
         this.strength = strength;
-        this.level = 1;
         this.attack = attack;
 
     }
+}
+class Player extends Man{
+    constructor(name, type, hp, defence, speed, strength, attack){
+        super(name, type, hp, defence, speed, strength, attack);
+        this.level = 1;
+    }
+}
+class Monster extends Man{
+    constructor(){
+        let arrayOfName = ['goblin','orc','spider'];
+        let name = arrayOfName[rng(0,arrayOfName.length)];
+        let type = arrayOfName[rng(0,arrayOfName.length)];
+        let hp = rng(50,150);
+        let maxHP = hp;
+        let defence = rng(1,20);
+        let speed = rng(1,20);
+        let strength = rng(1,20);
+        let attack = "club";
+        super(name, type, hp, defence, speed, strength, attack);
+    }
+
+
 }
 // start this shit fam
 function printClass() {
