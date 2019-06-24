@@ -1,0 +1,30 @@
+html body{
+    height: 100%;
+    width: 100%;
+    background-color: #3c3c3c;
+}
+.white{
+    color: white;
+}
+#createCharacter{
+    background-color: darkgray;
+    height: 50%;
+    width: 50%;
+}
+#mainWindow{
+    background-color: darkgray;
+    height: 80%;
+    width: 80%;
+}
+#inventory{
+    position: absolute;
+    left: auto;
+    width: 20%;
+    height: 65%;
+    border: 3px solid blue;
+}
+#options{
+    border: solid 10px green;
+    position: absolute;
+    bottom:0px;
+}

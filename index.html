@@ -1,0 +1,43 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="script.js"></script>
+</head>
+
+<body>
+
+    <center>
+        <div id="createCharacter">
+            <h1 class="white">Create Your character!</h1>
+            <table>
+                <tr>
+                    <td>
+                        <p>Name :</p>
+                    </td>
+                    <td><input type="text" id="name"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Class</p>
+                    </td>
+                    <td><select id="class">
+                            <option value="warrior">Warrior</option>
+                            <option value="barbarian">Barbarian</option>
+                            <option value="thief">Thief</option>
+                            <option value="monk">Monk</option>
+                        </select>
+                </tr>
+            </table>
+            <button onclick="printClass()">make character</button>
+
+        </div>
+    </center>
+    <!--<div id="mainWindow">
+        <div id="bigWindow"></div>
+        <div id="inventory"></div>
+        <div id="options"></div>
+    </div>-->
+</body>
+
+</html>
