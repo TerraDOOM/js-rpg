@@ -97,13 +97,13 @@ function monsterAttacking() {
     if (randomNumber <= 5) {
         console.log("monster missed oof critical failure");
     } else if (randomNumber >= 26) {
-        console.log("the monster really didn't miss you on this one critical success");
         let damage = rng(10, 20);
+        console.log("the monster really didn't miss you on this! one critical success! you lose :"+ damage +"hp");
         player.hp = player.hp - rng(10, 20);
     }
     else {
-        console.log("the monster hurts you!");
         let damage = rng(5, 10);
+        console.log("the monster hurts you! you lose :"+ damage +"hp");
         player.hp = player.hp - damage;
     }
     playerStatus();
@@ -114,12 +114,14 @@ function attackMonster() {
     if (randomNumber <= 5) {
         console.log("you miss the monster Critical failure");
     } else if (randomNumber >= 26) {
-        console.log("You sure showed to that monster who's boss! critical success");
-        monster.hp = monster.hp - (rng(10, 20) * player.strength);
+        let damage = rng(10, 20);
+        console.log("You sure showed to that monster who's boss! critical success! you deal :"+damage * player.strength+"hp");
+        monster.hp = monster.hp - (damage * player.strength);
     }
     else {
-        console.log("you hit the monster");
-        monster.hp = monster.hp - (rng(5, 10) * player.strength);
+        let damage = rng(5, 10);
+        console.log("you hit the monster you deal :" + damage * player.strength+"hp");
+        monster.hp = monster.hp - (damage * player.strength);
     }
     playerStatus();
 }
@@ -127,10 +129,24 @@ function attackMonster() {
 function doAction(action) {
     switch (action) {
         case "fight":
-            // do stuff
+            if(player.speed > monster.speed){
+                attackMonster();
+                monsterAttacking();
+            }
+            else if(player.speed <= monster.speed){
+                monsterAttacking();
+                attackMonster();
+            }
             break;
         case "runAway":
-            runAway()
+            if(player.speed > monster.speed){
+                runAway()
+                monsterAttacking();
+            }
+            else if(player.speed <= monster.speed){
+                monsterAttacking();
+                runAway()
+            }
             break;
         default:
             console.log("you gay, or game is bugged");
@@ -153,10 +169,11 @@ function runAway() {
         generateEvent();
     }
 }
-//very hard sorry about that might change by making functions but lazy atm
+//very hard. sorry about that. might change by making functions but lazy atm. ):
 function startCombat(){
     monster = new Monster();
     currentEvent = "combat";
+    console.log('OH NO a '+monster.name+' spots you! he has a '+monster.attack);
     //change the window layout
     let para = document.createElement("h1");//create a new html element
     let node = document.createTextNode("Combat Time");//create a new string
@@ -171,8 +188,8 @@ function startCombat(){
     button2.appendChild(textButton2);
     button1.classList.add('block');
     button2.classList.add('block');
-    button1.onclick = attackMonster;//connecting function to the combat
-    button2.onclick = runAway;
+    button1.onclick = function() { doAction("fight")};//connecting function to the combat
+    button2.onclick = function() { doAction("runAway")};
 
     element = document.getElementById("options");//gets already existing html element
     element.appendChild(button1);
