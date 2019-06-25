@@ -166,7 +166,8 @@ function runAway() {
         console.log("You could not escape :O");
     } else if (randomNumber >= 6) {
         console.log("You manage to run away :D");
-        generateEvent();
+        clearHUD();
+        eventSetup();
     }
 }
 //very hard. sorry about that. might change by making functions but lazy atm. ):
@@ -195,18 +196,39 @@ function startCombat(){
     element.appendChild(button1);
     element.appendChild(button2);
 }
-
+//removes every child nodes from both options AND main screen
+function clearHUD(){
+    let myNode = document.getElementById("bigWindow");
+    myNode.innerHTML = '';
+    myNode = document.getElementById("options");
+    myNode.innerHTML = '';
+}
 function playerStatus() {
     if (player.hp <= 0) {
         console.log("you lost lmao fuck you");
+        clearHUD();
+        gameOver("killed by a monster");
     }
     else if (monster.hp <= 0){
         console.log("the monster died :D");
+        clearHUD();
+        eventSetup();
     }
     else{
         console.log("your health"+player.hp);
         console.log("monster's health"+ monster.hp);
     }
+}
+function gameOver(causeOfDeath){
+    let para = document.createElement("h1");//create a new html element
+    let node = document.createTextNode("GAME OVER");//create a new string
+    para.appendChild(node);//puts the string into the html element
+    let element = document.getElementById("bigWindow");//gets already existing html element
+    element.appendChild(para);//put the new html element inside of the already existing html element
+    para = document.createElement("p");
+    node = document.createTextNode(causeOfDeath);
+    para.appendChild(node);
+    element.appendChild(para);
 }
 //start the script when the whole page is loaded needed for html element to work bc they don't exist when the script executes normally (fix later)
 window.onload =printClass;
