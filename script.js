@@ -18,22 +18,22 @@ class Man {
 
     }
 }
-class Player extends Man{
-    constructor(name, type, hp, defence, speed, strength, attack){
+class Player extends Man {
+    constructor(name, type, hp, defence, speed, strength, attack) {
         super(name, type, hp, defence, speed, strength, attack);
         this.level = 1;
     }
 }
-class Monster extends Man{
-    constructor(){
-        let arrayOfName = ['goblin','orc','spider'];
-        let name = arrayOfName[rng(0,arrayOfName.length)];
-        let type = arrayOfName[rng(0,arrayOfName.length)];
-        let hp = rng(50,150);
+class Monster extends Man {
+    constructor() {
+        let arrayOfName = ['goblin', 'orc', 'spider'];
+        let name = arrayOfName[rng(0, arrayOfName.length)];
+        let type = arrayOfName[rng(0, arrayOfName.length)];
+        let hp = rng(50, 150);
         let maxHP = hp;
-        let defence = rng(1,20);
-        let speed = rng(1,20);
-        let strength = rng(1,20);
+        let defence = rng(1, 20);
+        let speed = rng(1, 20);
+        let strength = rng(1, 20);
         let attack = "club";
         super(name, type, hp, defence, speed, strength, attack);
     }
@@ -81,10 +81,10 @@ function printClass() {
             return; //forced exit so the game doesn't try to construct a object with no data;
             break;
     }
-    
+
     player = new Player(name, type, hp, defence, speed, strength, attack);
     eventSetup();
-    console.log(player.attack);//first test
+    console.log(player.attack); //first test
 }
 
 // random number in the interval [min, max], inclusive
@@ -98,12 +98,11 @@ function monsterAttacking() {
         console.log("monster missed oof critical failure");
     } else if (randomNumber >= 26) {
         let damage = rng(10, 20);
-        console.log("the monster really didn't miss you on this! one critical success! you lose :"+ damage +"hp");
+        console.log("the monster really didn't miss you on this! one critical success! you lose :" + damage + "hp");
         player.hp = player.hp - rng(10, 20);
-    }
-    else {
+    } else {
         let damage = rng(5, 10);
-        console.log("the monster hurts you! you lose :"+ damage +"hp");
+        console.log("the monster hurts you! you lose :" + damage + "hp");
         player.hp = player.hp - damage;
     }
     playerStatus();
@@ -115,12 +114,11 @@ function attackMonster() {
         console.log("you miss the monster Critical failure");
     } else if (randomNumber >= 26) {
         let damage = rng(10, 20);
-        console.log("You sure showed to that monster who's boss! critical success! you deal :"+damage * player.strength+"hp");
+        console.log("You sure showed to that monster who's boss! critical success! you deal :" + damage * player.strength + "hp");
         monster.hp = monster.hp - (damage * player.strength);
-    }
-    else {
+    } else {
         let damage = rng(5, 10);
-        console.log("you hit the monster you deal :" + damage * player.strength+"hp");
+        console.log("you hit the monster you deal :" + damage * player.strength + "hp");
         monster.hp = monster.hp - (damage * player.strength);
     }
     playerStatus();
@@ -129,21 +127,19 @@ function attackMonster() {
 function doAction(action) {
     switch (action) {
         case "fight":
-            if(player.speed > monster.speed){
+            if (player.speed > monster.speed) {
                 attackMonster();
                 monsterAttacking();
-            }
-            else if(player.speed <= monster.speed){
+            } else if (player.speed <= monster.speed) {
                 monsterAttacking();
                 attackMonster();
             }
             break;
         case "runAway":
-            if(player.speed > monster.speed){
+            if (player.speed > monster.speed) {
                 runAway()
                 monsterAttacking();
-            }
-            else if(player.speed <= monster.speed){
+            } else if (player.speed <= monster.speed) {
                 monsterAttacking();
                 runAway()
             }
@@ -171,16 +167,16 @@ function runAway() {
     }
 }
 //very hard. sorry about that. might change by making functions but lazy atm. ):
-function startCombat(){
+function startCombat() {
     monster = new Monster();
     currentEvent = "combat";
-    console.log('OH NO a '+monster.name+' spots you! he has a '+monster.attack);
+    console.log('OH NO a ' + monster.name + ' spots you! he has a ' + monster.attack);
     //change the window layout
-    let para = document.createElement("h1");//create a new html element
-    let node = document.createTextNode("Combat Time");//create a new string
-    para.appendChild(node);//puts the string into the html element
-    let element = document.getElementById("bigWindow");//gets already existing html element
-    element.appendChild(para);//put the new html element inside of the already existing html element
+    let para = document.createElement("h1"); //create a new html element
+    let node = document.createTextNode("Combat Time"); //create a new string
+    para.appendChild(node); //puts the string into the html element
+    let element = document.getElementById("bigWindow"); //gets already existing html element
+    element.appendChild(para); //put the new html element inside of the already existing html element
     button1 = document.createElement("button");
     textButton1 = document.createTextNode("Fight");
     button2 = document.createElement("button");
@@ -189,46 +185,50 @@ function startCombat(){
     button2.appendChild(textButton2);
     button1.classList.add('block');
     button2.classList.add('block');
-    button1.onclick = function() { doAction("fight")};//connecting function to the combat
-    button2.onclick = function() { doAction("runAway")};
+    button1.onclick = function () {
+        doAction("fight")
+    }; //connecting function to the combat
+    button2.onclick = function () {
+        doAction("runAway")
+    };
 
-    element = document.getElementById("options");//gets already existing html element
+    element = document.getElementById("options"); //gets already existing html element
     element.appendChild(button1);
     element.appendChild(button2);
 }
 //removes every child nodes from both options AND main screen
-function clearUI(){
+function clearUI() {
     let myNode = document.getElementById("bigWindow");
     myNode.innerHTML = '';
     myNode = document.getElementById("options");
     myNode.innerHTML = '';
 }
+
 function playerStatus() {
     if (player.hp <= 0) {
         console.log("you lost lmao fuck you");
         clearUI();
         gameOver("killed by a monster");
-    }
-    else if (monster.hp <= 0){
+    } else if (monster.hp <= 0) {
         console.log("the monster died :D");
         clearUI();
         eventSetup();
-    }
-    else{
-        console.log("your health"+player.hp);
-        console.log("monster's health"+ monster.hp);
+    } else {
+        console.log("your health" + player.hp);
+        console.log("monster's health" + monster.hp);
     }
 }
-function gameOver(causeOfDeath){
-    let para = document.createElement("h1");//create a new html element
-    let node = document.createTextNode("GAME OVER");//create a new string
-    para.appendChild(node);//puts the string into the html element
-    let element = document.getElementById("bigWindow");//gets already existing html element
-    element.appendChild(para);//put the new html element inside of the already existing html element
+
+function gameOver(causeOfDeath) {
+    let para = document.createElement("h1"); //create a new html element
+    let node = document.createTextNode("GAME OVER"); //create a new string
+    para.appendChild(node); //puts the string into the html element
+    let element = document.getElementById("bigWindow"); //gets already existing html element
+    element.appendChild(para); //put the new html element inside of the already existing html element
     para = document.createElement("p");
     node = document.createTextNode(causeOfDeath);
     para.appendChild(node);
     element.appendChild(para);
 }
 //start the script when the whole page is loaded needed for html element to work bc they don't exist when the script executes normally (fix later)
-window.onload =printClass;
+window.onload = printClass;

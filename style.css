@@ -1,30 +1,35 @@
-html body{
+html body {
     height: 100%;
     width: 100%;
     background-color: #3c3c3c;
 }
-.white{
+
+.white {
     color: white;
 }
-#createCharacter{
+
+#createCharacter {
     background-color: darkgray;
     height: 50%;
     width: 50%;
 }
-#mainWindow{
+
+#mainWindow {
     background-color: darkgray;
     position: relative;
     height: 80%;
     width: 80%;
 }
-#inventory{
+
+#inventory {
     position: absolute;
     left: auto;
     width: 20%;
     height: 65%;
     border: 3px solid blue;
 }
-#options{
+
+#options {
     border: 3px solid blue;
     position: absolute;
     display: flex;
@@ -33,13 +38,15 @@ html body{
     width: 100%;
     height: 34%;
 }
-#bigWindow{
+
+#bigWindow {
     position: absolute;
     right: 0;
     width: 79%;
     height: 65%;
     border: 3px solid blue;
 }
+
 .block {
     display: block;
     width: 50%;
@@ -50,6 +57,7 @@ html body{
     cursor: pointer;
     text-align: center;
 }
-.block:hover{
+
+.block:hover {
     background-color: crimson;
 }
