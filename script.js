@@ -166,7 +166,7 @@ function runAway() {
         console.log("You could not escape :O");
     } else if (randomNumber >= 6) {
         console.log("You manage to run away :D");
-        clearHUD();
+        clearUI();
         eventSetup();
     }
 }
@@ -197,7 +197,7 @@ function startCombat(){
     element.appendChild(button2);
 }
 //removes every child nodes from both options AND main screen
-function clearHUD(){
+function clearUI(){
     let myNode = document.getElementById("bigWindow");
     myNode.innerHTML = '';
     myNode = document.getElementById("options");
@@ -206,12 +206,12 @@ function clearHUD(){
 function playerStatus() {
     if (player.hp <= 0) {
         console.log("you lost lmao fuck you");
-        clearHUD();
+        clearUI();
         gameOver("killed by a monster");
     }
     else if (monster.hp <= 0){
         console.log("the monster died :D");
-        clearHUD();
+        clearUI();
         eventSetup();
     }
     else{
