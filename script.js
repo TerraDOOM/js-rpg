@@ -21,8 +21,8 @@ class Man {
         this.exp = exp;
     }
 }
-class weapon{
-    constructor(name,power,type){
+class weapon {
+    constructor(name, power, type) {
         this.name = name;
         this.power = power;
         this.type = type;
@@ -38,15 +38,15 @@ class Player extends Man {
 class Monster extends Man {
     constructor() {
         let arrayOfName = ['goblin', 'orc', 'spider'];
-        let name = arrayOfName[rng(0, arrayOfName.length)];
-        let type = arrayOfName[rng(0, arrayOfName.length)];
+        let name = arrayOfName[rng(0, arrayOfName.length - 1)];
+        let type = arrayOfName[rng(0, arrayOfName.length - 1)];
         let hp = rng(50, 150);
         let maxHP = hp;
         let defence = rng(1, 20);
         let speed = rng(1, 20);
         let strength = rng(1, 20);
-        let attack = new weapon("club", 5,'blunt');
-        let exp = Math.floor((defence * speed * strength)/3);
+        let attack = new weapon("club", 5, 'blunt');
+        let exp = Math.floor((defence * speed * strength) / 3);
         super(name, type, hp, defence, speed, strength, attack, exp);
     }
 }
@@ -68,25 +68,25 @@ function printClass() {
             defence = 10;
             speed = 5;
             strength = 11;
-            attack = new weapon("sword", 10,'cut');
+            attack = new weapon("sword", 10, 'cut');
             break;
         case "barbarian":
             defence = 5;
             speed = 3;
             strength = 15;
-            attack = new weapon("club", 10,'blunt');
+            attack = new weapon("club", 10, 'blunt');
             break;
         case "thief":
             defence = 15;
             speed = 15;
             strength = 8;
-            attack = new weapon("dagger", 10,'poke');
+            attack = new weapon("dagger", 10, 'poke');
             break;
         case "monk":
             defence = 20;
             speed = 20;
             strength = 20;
-            attack = new weapon("cross", 10,'Holy');
+            attack = new weapon("cross", 10, 'Holy');
             break;
         default:
             console.log("Your class doesn't! exist naughty boy!");
@@ -99,16 +99,16 @@ function printClass() {
     console.log(player.attack); //first test
 }
 //very hard. sorry about that. might change by making functions but lazy atm. ):
-function startCombat(){
+function startCombat() {
     monster = new Monster();
     currentEvent = "combat";
-    console.log('OH NO a '+monster.name+' spots you! it has a '+monster.attack.name);
+    console.log('OH NO a ' + monster.name + ' spots you! it has a ' + monster.attack.name);
     //change the window layout
-    let para = document.createElement("h1");//create a new html element
-    let node = document.createTextNode("Combat Time");//create a new string
-    para.appendChild(node);//puts the string into the html element
-    let element = document.getElementById("bigWindow");//gets already existing html element
-    element.appendChild(para);//put the new html element inside of the already existing html element
+    let para = document.createElement("h1"); //create a new html element
+    let node = document.createTextNode("Combat Time"); //create a new string
+    para.appendChild(node); //puts the string into the html element
+    let element = document.getElementById("bigWindow"); //gets already existing html element
+    element.appendChild(para); //put the new html element inside of the already existing html element
     let button1 = document.createElement("button");
     let textButton1 = document.createTextNode("Fight");
     let button2 = document.createElement("button");
@@ -117,15 +117,19 @@ function startCombat(){
     button2.appendChild(textButton2);
     button1.classList.add('block');
     button2.classList.add('block');
-    button1.onclick = function() { doAction("fight")};//connecting function to the combat
-    button2.onclick = function() { doAction("runAway")};
+    button1.onclick = function () {
+        doAction("fight")
+    }; //connecting function to the combat
+    button2.onclick = function () {
+        doAction("runAway")
+    };
 
-    element = document.getElementById("options");//gets already existing html element
+    element = document.getElementById("options"); //gets already existing html element
     element.appendChild(button1);
     element.appendChild(button2);
 }
 //removes every child nodes from both options AND main screen
-function clearUI(){
+function clearUI() {
     let myNode = document.getElementById("bigWindow");
     myNode.innerHTML = '';
     myNode = document.getElementById("options");
@@ -151,12 +155,12 @@ function monsterAttacking() {
         console.log("monster missed oof critical failure");
     } else if (randomNumber >= 26) {
         let damage = rng(10, 20);
-        console.log("the monster really didn't miss you on this one! critical success! you lose :" + damage*monster.attack.power + "hp");
-        player.hp = player.hp - damage*monster.attack.power;
+        console.log("the monster really didn't miss you on this one! critical success! you lost " + damage * monster.attack.power + " hp");
+        player.hp = player.hp - damage * monster.attack.power;
     } else {
         let damage = rng(5, 10);
-        console.log("the monster hurts you! you lose :" + damage*monster.attack.power + "hp");
-        player.hp = player.hp - damage*monster.attack.power;
+        console.log("the monster hurts you! you lost " + damage * monster.attack.power + " hp");
+        player.hp = player.hp - damage * monster.attack.power;
     }
     return playerStatus();
 }
@@ -168,12 +172,11 @@ function attackMonster() {
         console.log("you miss the monster Critical failure");
     } else if (randomNumber >= 26) {
         let damage = rng(10, 20);
-        console.log("You sure showed to that monster who's boss! critical success! you deal :"+damage * player.strength+"hp");
+        console.log("You sure showed to that monster who's boss! critical success! you dealt " + damage * player.strength + " damage");
         monster.hp = monster.hp - (damage * player.attack.power);
-    }
-    else {
+    } else {
         let damage = rng(5, 10);
-        console.log("you hit the monster you deal :" + damage * player.strength+"hp");
+        console.log("you hit the monster and deal " + damage * player.strength + " damage");
         monster.hp = monster.hp - (damage * player.attack.power);
     }
     return playerStatus();
@@ -194,11 +197,10 @@ function runAway() {
 function doAction(action) {
     switch (action) {
         case "fight":
-            if(player.speed > monster.speed){
+            if (player.speed > monster.speed) {
                 let maybe = attackMonster();
                 if (maybe) monsterAttacking();
-            }
-            else if(player.speed <= monster.speed) {
+            } else if (player.speed <= monster.speed) {
                 let maybe = monsterAttacking();
                 if (maybe) attackMonster();
             }
@@ -218,15 +220,15 @@ function doAction(action) {
     }
 }
 //leveling up
-function levelUp(){
+function levelUp() {
     console.log('______________LEVEL UP_____________');
-    while(player.levelUp<= player.exp) {
+    while (player.levelUp <= player.exp) {
         player.level = player.level + 1;
         let number = player.level;
         player.levelUp = (1.8 * (number + 100)) + player.levelUp;
-        console.log('Congratulation, You leveled up you are now level:' + player.level);
+        console.log('Congratulations, you leveled up! You are now level ' + player.level);
     }
-    console.log('you need ' + player.levelUp + 'xp to level up again');
+    console.log('you need ' + player.levelUp + ' xp to level up again');
 }
 //removes every child nodes from both options AND main screen
 function clearUI() {
@@ -244,17 +246,16 @@ function playerStatus() {
         gameOver("killed by a monster");
     } else if (monster.hp <= 0) {
         console.log("the monster died :D");
-        console.log("you gain :"+monster.exp+"xp")
+        console.log("you gained " + monster.exp + " xp")
         player.exp = monster.exp + player.exp;
-        if (player.exp >= player.levelUp){
+        if (player.exp >= player.levelUp) {
             levelUp();
         }
         clearUI();
         eventSetup();
-    }
-    else{
-        console.log("your health"+player.hp);
-        console.log("monster's health"+ monster.hp);
+    } else {
+        console.log("your health: " + player.hp);
+        console.log("monster's health: " + monster.hp);
         return true;
     }
 }
