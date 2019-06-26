@@ -1,12 +1,15 @@
 let player = "";
 let monster = "";
 let currentEvent = "";
-//this is the big git test haha i'm so fucking funny i hate my life 
-// but it worked out uwu
-//here is the funny test haha
+
+
+
+
+//--------------------------------------------CLASS--------------------------
+
 class Man {
     //constructor
-    constructor(name, type, hp, defence, speed, strength, attack) {
+    constructor(name, type, hp, defence, speed, strength, attack, exp) {
         this.name = name;
         this.type = type;
         this.hp = hp;
@@ -15,13 +18,21 @@ class Man {
         this.speed = speed;
         this.strength = strength;
         this.attack = attack;
-
+        this.exp = exp;
+    }
+}
+class weapon{
+    constructor(name,power,type){
+        this.name = name;
+        this.power = power;
+        this.type = type;
     }
 }
 class Player extends Man{
     constructor(name, type, hp, defence, speed, strength, attack){
-        super(name, type, hp, defence, speed, strength, attack);
+        super(name, type, hp, defence, speed, strength, attack, 0);
         this.level = 1;
+        this.levelUp = 100;
     }
 }
 class Monster extends Man{
@@ -35,11 +46,12 @@ class Monster extends Man{
         let speed = rng(1,20);
         let strength = rng(1,20);
         let attack = "club";
-        super(name, type, hp, defence, speed, strength, attack);
+        let exp = Math.floor((defence * speed * strength)/3);
+        super(name, type, hp, defence, speed, strength, attack, exp);
     }
-
-
 }
+
+//---------------------------------------CHANGE UI--------------------------
 // start this shit fam
 function printClass() {
     //let name = document.getElementById('name').value;
@@ -56,25 +68,25 @@ function printClass() {
             defence = 10;
             speed = 5;
             strength = 11;
-            attack = "sword";
+            attack = new weapon("sword", 10,'cut');
             break;
         case "barbarian":
             defence = 5;
             speed = 3;
             strength = 15;
-            attack = "club";
+            attack = new weapon("club", 10,'blunt');
             break;
         case "thief":
             defence = 15;
             speed = 15;
             strength = 8;
-            attack = "dagger";
+            attack = new weapon("dagger", 10,'poke');
             break;
         case "monk":
             defence = 20;
             speed = 20;
             strength = 20;
-            attack = "cross"
+            attack = new weapon("cross", 10,'Holy');
             break;
         default:
             console.log("Your class doesn't! exist naughty boy!");
@@ -85,90 +97,6 @@ function printClass() {
     player = new Player(name, type, hp, defence, speed, strength, attack);
     eventSetup();
     console.log(player.attack);//first test
-}
-
-// random number in the interval [min, max], inclusive
-function rng(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function monsterAttacking() {
-    let randomNumber = rng(1, 30);
-    if (randomNumber <= 5) {
-        console.log("monster missed oof critical failure");
-    } else if (randomNumber >= 26) {
-        let damage = rng(10, 20);
-        console.log("the monster really didn't miss you on this! one critical success! you lose :"+ damage +"hp");
-        player.hp = player.hp - rng(10, 20);
-    }
-    else {
-        let damage = rng(5, 10);
-        console.log("the monster hurts you! you lose :"+ damage +"hp");
-        player.hp = player.hp - damage;
-    }
-    playerStatus();
-}
-
-function attackMonster() {
-    let randomNumber = rng(1, 30);
-    if (randomNumber <= 5) {
-        console.log("you miss the monster Critical failure");
-    } else if (randomNumber >= 26) {
-        let damage = rng(10, 20);
-        console.log("You sure showed to that monster who's boss! critical success! you deal :"+damage * player.strength+"hp");
-        monster.hp = monster.hp - (damage * player.strength);
-    }
-    else {
-        let damage = rng(5, 10);
-        console.log("you hit the monster you deal :" + damage * player.strength+"hp");
-        monster.hp = monster.hp - (damage * player.strength);
-    }
-    playerStatus();
-}
-
-function doAction(action) {
-    switch (action) {
-        case "fight":
-            if(player.speed > monster.speed){
-                attackMonster();
-                monsterAttacking();
-            }
-            else if(player.speed <= monster.speed){
-                monsterAttacking();
-                attackMonster();
-            }
-            break;
-        case "runAway":
-            if(player.speed > monster.speed){
-                runAway()
-                monsterAttacking();
-            }
-            else if(player.speed <= monster.speed){
-                monsterAttacking();
-                runAway()
-            }
-            break;
-        default:
-            console.log("you gay, or game is bugged");
-            break;
-    }
-}
-
-// do the event setup shit
-function eventSetup() {
-    startCombat();
-
-}
-
-function runAway() {
-    let randomNumber = rng(1, 10);
-    if (randomNumber <= 5) {
-        console.log("You could not escape :O");
-    } else if (randomNumber >= 6) {
-        console.log("You manage to run away :D");
-        clearUI();
-        eventSetup();
-    }
 }
 //very hard. sorry about that. might change by making functions but lazy atm. ):
 function startCombat(){
@@ -203,7 +131,111 @@ function clearUI(){
     myNode = document.getElementById("options");
     myNode.innerHTML = '';
 }
+
+//---------------------------------------Technical Shit--------------------------
+// random number in the interval [min, max], inclusive
+function rng(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+//---------------------------------------PLAYER ACTION--------------------------
+//the monster attacking you
+function monsterAttacking() {
+    console.log('______________MONSTER ATTACK_____________');
+    let randomNumber = rng(1, 30);
+    if (randomNumber <= 5) {
+        console.log("monster missed oof critical failure");
+    } else if (randomNumber >= 26) {
+        let damage = rng(10, 20);
+        console.log("the monster really didn't miss you on this! one critical success! you lose :"+ damage +"hp");
+        player.hp = player.hp - rng(10, 20);
+    }
+    else {
+        let damage = rng(5, 10);
+        console.log("the monster hurts you! you lose :"+ damage +"hp");
+        player.hp = player.hp - damage;
+    }
+    return playerStatus();
+}
+//you attacking monster
+function attackMonster() {
+    console.log('______________ATTACK MONSTER_____________');
+    let randomNumber = rng(1, 30);
+    if (randomNumber <= 5) {
+        console.log("you miss the monster Critical failure");
+    } else if (randomNumber >= 26) {
+        let damage = rng(10, 20);
+        console.log("You sure showed to that monster who's boss! critical success! you deal :"+damage * player.strength+"hp");
+        monster.hp = monster.hp - (damage * player.attack.power);
+    }
+    else {
+        let damage = rng(5, 10);
+        console.log("you hit the monster you deal :" + damage * player.strength+"hp");
+        monster.hp = monster.hp - (damage * player.attack.power);
+    }
+    return playerStatus();
+}
+//running away from the monster
+function runAway() {
+    console.log('______________RUN AWAY_____________');
+    let randomNumber = rng(1, 10);
+    if (randomNumber <= 5) {
+        console.log("You could not escape :O");
+    } else if (randomNumber >= 6) {
+        console.log("You manage to run away :D");
+        clearUI();
+        eventSetup();
+    }
+}
+//decide what you are going to do
+function doAction(action) {
+    switch (action) {
+        case "fight":
+            if(player.speed > monster.speed){
+                let maybe = attackMonster();
+                if (maybe)
+                monsterAttacking();
+            }
+            else if(player.speed <= monster.speed){
+                let maybe = monsterAttacking();
+                if (maybe)
+                attackMonster();
+            }
+            break;
+        case "runAway":
+            if(player.speed > monster.speed){
+                runAway()
+                monsterAttacking();
+            }
+            else if(player.speed <= monster.speed){
+                monsterAttacking();
+                runAway()
+            }
+            break;
+        default:
+            console.log("you gay, or game is bugged");
+            break;
+    }
+}
+// do the event setup shit
+function eventSetup() {
+    startCombat();
+
+}
+//leveling up
+function levelUp(){
+    console.log('______________LEVEL UP_____________');
+    while(player.levelUp<= player.exp) {
+        player.level = player.level + 1;
+        let number = player.level;
+        player.levelUp = (1.8 * (number + 100)) + player.levelUp;
+        console.log('Congratulation, You leveled up you are now level:' + player.level);
+    }
+    console.log('you need ' + player.levelUp + 'xp to level up again');
+}
+//test to see if player is still alive or not
 function playerStatus() {
+    console.log('______________PLAYER STATUS_____________');
     if (player.hp <= 0) {
         console.log("you lost lmao fuck you");
         clearUI();
@@ -211,15 +243,23 @@ function playerStatus() {
     }
     else if (monster.hp <= 0){
         console.log("the monster died :D");
+        console.log("you gain :"+monster.exp+"xp")
+        player.exp = monster.exp + player.exp;
+        if (player.exp >= player.levelUp){
+            levelUp();
+        }
         clearUI();
         eventSetup();
     }
     else{
         console.log("your health"+player.hp);
         console.log("monster's health"+ monster.hp);
+        return true;
     }
 }
+//game over
 function gameOver(causeOfDeath){
+    console.log('______________GAME OVER_____________');
     let para = document.createElement("h1");//create a new html element
     let node = document.createTextNode("GAME OVER");//create a new string
     para.appendChild(node);//puts the string into the html element
@@ -230,5 +270,6 @@ function gameOver(causeOfDeath){
     para.appendChild(node);
     element.appendChild(para);
 }
+
 //start the script when the whole page is loaded needed for html element to work bc they don't exist when the script executes normally (fix later)
 window.onload =printClass;
