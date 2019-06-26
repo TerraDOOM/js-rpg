@@ -28,15 +28,9 @@ class weapon{
         this.type = type;
     }
 }
-<<<<<<< HEAD
-class Player extends Man{
-    constructor(name, type, hp, defence, speed, strength, attack){
-        super(name, type, hp, defence, speed, strength, attack, 0);
-=======
 class Player extends Man {
     constructor(name, type, hp, defence, speed, strength, attack) {
-        super(name, type, hp, defence, speed, strength, attack);
->>>>>>> b7c03269eaadd5519949b7c9afe82a2d0c1cef24
+        super(name, type, hp, defence, speed, strength, attack, 0);
         this.level = 1;
         this.levelUp = 100;
     }
@@ -51,7 +45,7 @@ class Monster extends Man {
         let defence = rng(1, 20);
         let speed = rng(1, 20);
         let strength = rng(1, 20);
-        let attack = "club";
+        let attack = new weapon("club", 5,'blunt');
         let exp = Math.floor((defence * speed * strength)/3);
         super(name, type, hp, defence, speed, strength, attack, exp);
     }
@@ -108,17 +102,17 @@ function printClass() {
 function startCombat(){
     monster = new Monster();
     currentEvent = "combat";
-    console.log('OH NO a '+monster.name+' spots you! he has a '+monster.attack);
+    console.log('OH NO a '+monster.name+' spots you! it has a '+monster.attack.name);
     //change the window layout
     let para = document.createElement("h1");//create a new html element
     let node = document.createTextNode("Combat Time");//create a new string
     para.appendChild(node);//puts the string into the html element
     let element = document.getElementById("bigWindow");//gets already existing html element
     element.appendChild(para);//put the new html element inside of the already existing html element
-    button1 = document.createElement("button");
-    textButton1 = document.createTextNode("Fight");
-    button2 = document.createElement("button");
-    textButton2 = document.createTextNode("Run");
+    let button1 = document.createElement("button");
+    let textButton1 = document.createTextNode("Fight");
+    let button2 = document.createElement("button");
+    let textButton2 = document.createTextNode("Run");
     button1.appendChild(textButton1);
     button2.appendChild(textButton2);
     button1.classList.add('block');
@@ -137,7 +131,11 @@ function clearUI(){
     myNode = document.getElementById("options");
     myNode.innerHTML = '';
 }
+// do the event setup shit
+function eventSetup() {
+    startCombat();
 
+}
 //---------------------------------------Technical Shit--------------------------
 // random number in the interval [min, max], inclusive
 function rng(min, max) {
@@ -153,12 +151,12 @@ function monsterAttacking() {
         console.log("monster missed oof critical failure");
     } else if (randomNumber >= 26) {
         let damage = rng(10, 20);
-        console.log("the monster really didn't miss you on this! one critical success! you lose :" + damage + "hp");
-        player.hp = player.hp - rng(10, 20);
+        console.log("the monster really didn't miss you on this one! critical success! you lose :" + damage*monster.attack.power + "hp");
+        player.hp = player.hp - damage*monster.attack.power;
     } else {
         let damage = rng(5, 10);
-        console.log("the monster hurts you! you lose :" + damage + "hp");
-        player.hp = player.hp - damage;
+        console.log("the monster hurts you! you lose :" + damage*monster.attack.power + "hp");
+        player.hp = player.hp - damage*monster.attack.power;
     }
     return playerStatus();
 }
@@ -170,7 +168,6 @@ function attackMonster() {
         console.log("you miss the monster Critical failure");
     } else if (randomNumber >= 26) {
         let damage = rng(10, 20);
-<<<<<<< HEAD
         console.log("You sure showed to that monster who's boss! critical success! you deal :"+damage * player.strength+"hp");
         monster.hp = monster.hp - (damage * player.attack.power);
     }
@@ -178,14 +175,6 @@ function attackMonster() {
         let damage = rng(5, 10);
         console.log("you hit the monster you deal :" + damage * player.strength+"hp");
         monster.hp = monster.hp - (damage * player.attack.power);
-=======
-        console.log("You sure showed to that monster who's boss! critical success! you deal :" + damage * player.strength + "hp");
-        monster.hp = monster.hp - (damage * player.strength);
-    } else {
-        let damage = rng(5, 10);
-        console.log("you hit the monster you deal :" + damage * player.strength + "hp");
-        monster.hp = monster.hp - (damage * player.strength);
->>>>>>> b7c03269eaadd5519949b7c9afe82a2d0c1cef24
     }
     return playerStatus();
 }
@@ -205,23 +194,13 @@ function runAway() {
 function doAction(action) {
     switch (action) {
         case "fight":
-<<<<<<< HEAD
             if(player.speed > monster.speed){
                 let maybe = attackMonster();
-                if (maybe)
-                monsterAttacking();
+                if (maybe) monsterAttacking();
             }
-            else if(player.speed <= monster.speed){
+            else if(player.speed <= monster.speed) {
                 let maybe = monsterAttacking();
-                if (maybe)
-=======
-            if (player.speed > monster.speed) {
-                attackMonster();
-                monsterAttacking();
-            } else if (player.speed <= monster.speed) {
-                monsterAttacking();
->>>>>>> b7c03269eaadd5519949b7c9afe82a2d0c1cef24
-                attackMonster();
+                if (maybe) attackMonster();
             }
             break;
         case "runAway":
@@ -238,11 +217,6 @@ function doAction(action) {
             break;
     }
 }
-// do the event setup shit
-function eventSetup() {
-    startCombat();
-
-}
 //leveling up
 function levelUp(){
     console.log('______________LEVEL UP_____________');
@@ -254,39 +228,6 @@ function levelUp(){
     }
     console.log('you need ' + player.levelUp + 'xp to level up again');
 }
-<<<<<<< HEAD
-//test to see if player is still alive or not
-=======
-//very hard. sorry about that. might change by making functions but lazy atm. ):
-function startCombat() {
-    monster = new Monster();
-    currentEvent = "combat";
-    console.log('OH NO a ' + monster.name + ' spots you! he has a ' + monster.attack);
-    //change the window layout
-    let para = document.createElement("h1"); //create a new html element
-    let node = document.createTextNode("Combat Time"); //create a new string
-    para.appendChild(node); //puts the string into the html element
-    let element = document.getElementById("bigWindow"); //gets already existing html element
-    element.appendChild(para); //put the new html element inside of the already existing html element
-    button1 = document.createElement("button");
-    textButton1 = document.createTextNode("Fight");
-    button2 = document.createElement("button");
-    textButton2 = document.createTextNode("Run");
-    button1.appendChild(textButton1);
-    button2.appendChild(textButton2);
-    button1.classList.add('block');
-    button2.classList.add('block');
-    button1.onclick = function () {
-        doAction("fight")
-    }; //connecting function to the combat
-    button2.onclick = function () {
-        doAction("runAway")
-    };
-
-    element = document.getElementById("options"); //gets already existing html element
-    element.appendChild(button1);
-    element.appendChild(button2);
-}
 //removes every child nodes from both options AND main screen
 function clearUI() {
     let myNode = document.getElementById("bigWindow");
@@ -295,7 +236,6 @@ function clearUI() {
     myNode.innerHTML = '';
 }
 
->>>>>>> b7c03269eaadd5519949b7c9afe82a2d0c1cef24
 function playerStatus() {
     console.log('______________PLAYER STATUS_____________');
     if (player.hp <= 0) {
@@ -311,7 +251,6 @@ function playerStatus() {
         }
         clearUI();
         eventSetup();
-<<<<<<< HEAD
     }
     else{
         console.log("your health"+player.hp);
@@ -320,27 +259,13 @@ function playerStatus() {
     }
 }
 //game over
-function gameOver(causeOfDeath){
-    console.log('______________GAME OVER_____________');
-    let para = document.createElement("h1");//create a new html element
-    let node = document.createTextNode("GAME OVER");//create a new string
-    para.appendChild(node);//puts the string into the html element
-    let element = document.getElementById("bigWindow");//gets already existing html element
-    element.appendChild(para);//put the new html element inside of the already existing html element
-=======
-    } else {
-        console.log("your health" + player.hp);
-        console.log("monster's health" + monster.hp);
-    }
-}
-
 function gameOver(causeOfDeath) {
+    console.log('______________GAME OVER_____________');
     let para = document.createElement("h1"); //create a new html element
     let node = document.createTextNode("GAME OVER"); //create a new string
     para.appendChild(node); //puts the string into the html element
     let element = document.getElementById("bigWindow"); //gets already existing html element
     element.appendChild(para); //put the new html element inside of the already existing html element
->>>>>>> b7c03269eaadd5519949b7c9afe82a2d0c1cef24
     para = document.createElement("p");
     node = document.createTextNode(causeOfDeath);
     para.appendChild(node);
