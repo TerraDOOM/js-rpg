@@ -180,6 +180,37 @@ function startCombat() {
     element.appendChild(button1);
     element.appendChild(button2);
 }
+//meet an npc
+function startFriendly(){
+    clearUI();
+    monster = zone.generateMonster();
+    currentEvent = "combat";
+    console.log('OH NO a ' + monster.name + ' spots you! it has a ' + monster.attack.name);
+    //change the window layout
+    let para = document.createElement("h1"); //create a new html element
+    let node = document.createTextNode("Combat Time"); //create a new string
+    para.appendChild(node); //puts the string into the html element
+    let element = document.getElementById("bigWindow"); //gets already existing html element
+    element.appendChild(para); //put the new html element inside of the already existing html element
+    let button1 = document.createElement("button");
+    let textButton1 = document.createTextNode("Fight");
+    let button2 = document.createElement("button");
+    let textButton2 = document.createTextNode("Run");
+    button1.appendChild(textButton1);
+    button2.appendChild(textButton2);
+    button1.classList.add('block');
+    button2.classList.add('block');
+    button1.onclick = function () {
+        doAction("fight")
+    }; //connecting function to the combat
+    button2.onclick = function () {
+        doAction("runAway")
+    };
+
+    element = document.getElementById("options"); //gets already existing html element
+    element.appendChild(button1);
+    element.appendChild(button2);
+}
 //function to walk around desu
 function walking(){
     let para = document.createElement("h1"); //create a new html element
@@ -219,6 +250,8 @@ function eventSetup(type) {
         case 'combat':
             startCombat();
             break;
+        case 'friendly':
+            startFriendly();
         default:
             break;
     }
@@ -276,7 +309,7 @@ function runAway() {
     } else if (randomNumber >= 6) {
         console.log("You manage to run away :D");
         clearUI();
-        eventSetup();
+        walking();
     }
 }
 //heal the character
@@ -294,9 +327,13 @@ function walkFront(){
     }
     else {
         zone.move = zone.move + 1;
+        console.log('you move 1 frame desu');
         let oldZone = zone.zone;
-        if(zone.moveNumber === zone.move)zone.changeZone();
-        console.log('you got out of the '+ oldZone +' and now you are in a ' + zone.zone +' and you are just walking around.')
+        if (zone.moveNumber === zone.move)
+        {
+            zone.changeZone()
+            console.log('you got out of the ' + oldZone + ' and now you are in a ' + zone.zone + ' and you are just walking around.')
+        }
     }
 }
 //rest to heal HP or fight monster
