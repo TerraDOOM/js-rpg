@@ -1,7 +1,9 @@
+//----------------------------------------GLOBAL----------------------------
+
 let player = "";
 let monster = "";
 let currentEvent = "";
-
+let zone = "";
 
 
 
@@ -37,9 +39,9 @@ class Player extends Man {
 }
 class Monster extends Man {
     constructor() {
-        let arrayOfName = ['goblin', 'orc', 'spider'];
+        let arrayOfName = ['goblin', 'orc', 'spider','leaver beaver'];
         let name = arrayOfName[rng(0, arrayOfName.length - 1)];
-        let type = arrayOfName[rng(0, arrayOfName.length - 1)];
+        let type = 'MONSTER';
         let hp = rng(50, 150);
         let maxHP = hp;
         let defence = rng(1, 20);
@@ -48,9 +50,54 @@ class Monster extends Man {
         let attack = new weapon("club", 5, 'blunt');
         let exp = Math.floor((defence * speed * strength) / 3);
         super(name, type, hp, defence, speed, strength, attack, exp);
+        this.inv = [];
     }
 }
+class NPC extends Man {
+    constructor(){
+        let arrayOfName = ['Bee', 'vivi', 'gemini'];
+        let name = arrayOfName[rng(0, arrayOfName.length - 1)];
+        let type = 'FRIENDLY';
+        let hp = rng(50, 150);
+        let maxHP = hp;
+        let defence = rng(1, 20);
+        let speed = rng(1, 20);
+        let strength = rng(1, 20);
+        let attack = new weapon("club", 5, 'blunt');
+        let exp = Math.floor((defence * speed * strength) / 3);
+        super(name, type, hp, defence, speed, strength, attack, exp);
+        this.inv['good'];
+    }
+}
+class Zone {
+    constructor(){
+        let zonePossible = ['forest','cave','dungeon'];
+        this.zone = zonePossible[rng(0, zonePossible.length - 1)];
+        this.maxLevel = 10;
+        this.minLevel = 1;
+        this.zonePossible = zonePossible;
+    }
+    generateMonster(){
+        let arrayOfName = ['goblin', 'orc', 'spider'];
+        let name = arrayOfName[rng(0, arrayOfName.length - 1)];
+        let type = 'MONSTER';
+        let hp = rng(50, 150);
+        let maxHP = hp;
+        let defence = rng(1, 20);
+        let speed = rng(1, 20);
+        let strength = rng(1, 20);
+        let attack = new weapon("club", 5, 'blunt');
+        let exp = Math.floor((defence * speed * strength) / 3);
+        let monster = new Monster(name, type, hp, defence, speed, strength, attack, exp);
+        return monster ;
+    }
+    changeZone(){
+        this.minLevel = this.maxLevel + 1;
+        this.maxLevel = this.maxLevel + 10;
+        this.zone = this.zonePossible[rng(0, this.zonePossible.length - 1)];
+    }
 
+}
 //---------------------------------------CHANGE UI--------------------------
 // start this shit fam
 function printClass() {
@@ -93,14 +140,14 @@ function printClass() {
             return; //forced exit so the game doesn't try to construct a object with no data;
             break;
     }
-
+    zone = new Zone();
     player = new Player(name, type, hp, defence, speed, strength, attack);
+    console.log('you are in a ' + zone.zone +' and you are just walking around.')
     eventSetup();
-    console.log(player.attack); //first test
 }
 //very hard. sorry about that. might change by making functions but lazy atm. ):
 function startCombat() {
-    monster = new Monster();
+    monster = zone.generateMonster();
     currentEvent = "combat";
     console.log('OH NO a ' + monster.name + ' spots you! it has a ' + monster.attack.name);
     //change the window layout
@@ -145,7 +192,12 @@ function eventSetup() {
 function rng(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+function generateMin(){
+    
+}
+function generateMax(){
 
+}
 //---------------------------------------PLAYER ACTION--------------------------
 //the monster attacking you
 function monsterAttacking() {
