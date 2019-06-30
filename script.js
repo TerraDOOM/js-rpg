@@ -76,6 +76,8 @@ class Zone {
         this.maxLevel = 10;
         this.minLevel = 1;
         this.zonePossible = zonePossible;
+        this.moveNumber = rng(5,10);
+        this.move = 0;
     }
     generateMonster(){
         let arrayOfName = ['goblin', 'orc', 'spider'];
@@ -94,6 +96,8 @@ class Zone {
     changeZone(){
         this.minLevel = this.maxLevel + 1;
         this.maxLevel = this.maxLevel + 10;
+        this.moveNumber = rng(5,10);
+        this.move = 0;
         this.zone = this.zonePossible[rng(0, this.zonePossible.length - 1)];
     }
 
@@ -143,10 +147,11 @@ function printClass() {
     zone = new Zone();
     player = new Player(name, type, hp, defence, speed, strength, attack);
     console.log('you are in a ' + zone.zone +' and you are just walking around.')
-    eventSetup();
+    walking();
 }
 //very hard. sorry about that. might change by making functions but lazy atm. ):
 function startCombat() {
+    clearUI();
     monster = zone.generateMonster();
     currentEvent = "combat";
     console.log('OH NO a ' + monster.name + ' spots you! it has a ' + monster.attack.name);
@@ -175,6 +180,32 @@ function startCombat() {
     element.appendChild(button1);
     element.appendChild(button2);
 }
+//function to walk around desu
+function walking(){
+    let para = document.createElement("h1"); //create a new html element
+    let node = document.createTextNode("Walking Time"); //create a new string
+    para.appendChild(node); //puts the string into the html element
+    let element = document.getElementById("bigWindow"); //gets already existing html element
+    element.appendChild(para); //put the new html element inside of the already existing html element
+    let button1 = document.createElement("button");
+    let textButton1 = document.createTextNode("Move");
+    let button2 = document.createElement("button");
+    let textButton2 = document.createTextNode("Rest");
+    button1.appendChild(textButton1);
+    button2.appendChild(textButton2);
+    button1.classList.add('block');
+    button2.classList.add('block');
+    button1.onclick = function () {
+        doAction("Move")
+    }; //connecting function to the combat
+    button2.onclick = function () {
+        doAction("Rest")
+    };
+
+    element = document.getElementById("options"); //gets already existing html element
+    element.appendChild(button1);
+    element.appendChild(button2);
+}
 //removes every child nodes from both options AND main screen
 function clearUI() {
     let myNode = document.getElementById("bigWindow");
@@ -183,21 +214,24 @@ function clearUI() {
     myNode.innerHTML = '';
 }
 // do the event setup shit
-function eventSetup() {
-    startCombat();
+function eventSetup(type) {
+    switch (type) {
+        case 'combat':
+            startCombat();
+            break;
+        default:
+            break;
+    }
 
 }
+
 //---------------------------------------Technical Shit--------------------------
+
 // random number in the interval [min, max], inclusive
 function rng(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-function generateMin(){
-    
-}
-function generateMax(){
 
-}
 //---------------------------------------PLAYER ACTION--------------------------
 //the monster attacking you
 function monsterAttacking() {
@@ -245,6 +279,48 @@ function runAway() {
         eventSetup();
     }
 }
+//heal the character
+function healCharacter(amount){
+    player.hp = player.hp + amount;
+    if(player.hp > player.maxHP){
+        player.hp = player.maxHP;
+    }
+}
+//move up a grid
+function walkFront(){
+    let possibility = rng(1,30);
+    if (possibility <= 15){
+        eventSetup('combat');
+    }
+    else {
+        zone.move = zone.move + 1;
+        let oldZone = zone.zone;
+        if(zone.moveNumber === zone.move)zone.changeZone();
+        console.log('you got out of the '+ oldZone +' and now you are in a ' + zone.zone +' and you are just walking around.')
+    }
+}
+//rest to heal HP or fight monster
+function rest(){
+    console.log('_______________REST____________');
+    let possibility = rng(1,30);
+    if (possibility <= 10){
+        console.log('you are woken up at night by the sound of rustling');
+        eventSetup('combat');
+    }
+    else if (possibility >=25){
+        console.log('you are woken up at night by the sound of rustling');
+        let heal = rng(30,60);
+        healCharacter(heal);
+        console.log('You meet a lovely lady called gemini she heals you with her ASMR power you regain '+heal+'hp :D');
+
+    }
+    else {
+        let heal = rng(20,40);
+        healCharacter(heal);
+        console.log('you rest a little bit and you feel refreshed you regain '+heal+'hp :D');
+
+    }
+}
 //decide what you are going to do
 function doAction(action) {
     switch (action) {
@@ -259,12 +335,18 @@ function doAction(action) {
             break;
         case "runAway":
             if (player.speed > monster.speed) {
-                runAway()
+                runAway();
                 monsterAttacking();
             } else if (player.speed <= monster.speed) {
                 monsterAttacking();
                 runAway()
             }
+            break;
+        case 'Move' :
+            walkFront();
+            break;
+        case 'Rest':
+            rest();
             break;
         default:
             console.log("you gay, or game is bugged");
@@ -282,14 +364,7 @@ function levelUp() {
     }
     console.log('you need ' + player.levelUp + ' xp to level up again');
 }
-//removes every child nodes from both options AND main screen
-function clearUI() {
-    let myNode = document.getElementById("bigWindow");
-    myNode.innerHTML = '';
-    myNode = document.getElementById("options");
-    myNode.innerHTML = '';
-}
-
+//gives the player's status
 function playerStatus() {
     console.log('______________PLAYER STATUS_____________');
     if (player.hp <= 0) {
@@ -304,7 +379,7 @@ function playerStatus() {
             levelUp();
         }
         clearUI();
-        eventSetup();
+        walking();
     } else {
         console.log("your health: " + player.hp);
         console.log("monster's health: " + monster.hp);
@@ -324,6 +399,5 @@ function gameOver(causeOfDeath) {
     para.appendChild(node);
     element.appendChild(para);
 }
-
 //start the script when the whole page is loaded needed for html element to work bc they don't exist when the script executes normally (fix later)
 window.onload = printClass;
