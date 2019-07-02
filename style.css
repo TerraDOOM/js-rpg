@@ -10,11 +10,16 @@ html body {
 }
 
 #createCharacter {
+    text-align: center;
     background-color: darkgray;
+    margin: 0px auto 0px auto;
     height: 50%;
     width: 50%;
 }
-
+.center-block {
+    margin: auto;
+    display: block;
+}
 #mainWindow {
     background-color: darkgray;
     position: relative;

@@ -62,7 +62,7 @@ class NPC extends Man {
         this.inv['good'];
     }
 }
-class Zone {
+class  Zone {
     constructor(){
         this.zone = zonePossible[rng(0, zonePossible.length - 1)];
         this.maxLevel = 10;
@@ -109,12 +109,15 @@ class Zone {
 
 }
 //---------------------------------------CHANGE UI--------------------------
+function setUpGame(){
+
+}
 // start this shit fam
 function printClass() {
-    //let name = document.getElementById('name').value;
-    //let type = document.getElementById('class').value;
-    let type = 'warrior';
-    let name = "testBoy";
+    let name = document.getElementById('name').value;
+    let type = document.getElementById('class').value;
+    //let type = 'warrior';
+    //let name = "testBoy";
     let hp = 100;
     let defence = 0;
     let speed = 0;
@@ -150,6 +153,7 @@ function printClass() {
             return; //forced exit so the game doesn't try to construct a object with no data;
             break;
     }
+    setUpGame();
     zone = new Zone();
     player = new Player(name, type, hp, defence, speed, strength, attack);
     consoleGame(param=['you are in a ' + zone.zone +' and you are just walking around.'])
@@ -327,6 +331,7 @@ function runAway() {
         consoleGame(param=["You manage to run away :D"]);
         clearUI();
         walking();
+        return false;
     }
 }
 //heal the character
@@ -389,11 +394,11 @@ function doAction(action) {
             break;
         case "runAway":
             if (player.speed > monster.speed) {
-                runAway();
-                monsterAttacking();
+                let maybe = runAway();
+                if (maybe) monsterAttacking();
             } else if (player.speed <= monster.speed) {
-                monsterAttacking();
-                runAway()
+                let maybe = monsterAttacking();
+                if (maybe) runAway();
             }
             break;
         case 'Move' :
@@ -454,4 +459,4 @@ function gameOver(causeOfDeath) {
     element.appendChild(para);
 }
 //start the script when the whole page is loaded needed for html element to work bc they don't exist when the script executes normally (fix later)
-window.onload = printClass;
+//window.onload = printClass;
