@@ -40,14 +40,40 @@ function generateMonster(pool, level) {
     }
 
     let baseMonster = baseAptitudeFromLevel(level);
-
+    switch (monster.type){
+        case 'small':
+            let defMod = 1;
+            let spdMod = 1;
+            let strMod = 1;
+            break;
+        case 'normal':
+            let defMod = 1;
+            let spdMod = 1;
+            let strMod = 1;
+            break;
+        case 'big':
+            let defMod = 1;
+            let spdMod = 1;
+            let strMod = 1;
+            break;
+        case 'bug':
+            let defMod = 1;
+            let spdMod = 1;
+            let strMod = 1;
+            break;
+        default:
+            let defMod = 1;
+            let spdMod = 1;
+            let strMod = 1;
+            break;
+    }
     let name = monster.name;
     let type = monster.name;
     let hp = monster.stats.hpMod * baseMonster.hp;
     let maxHP = hp;
-    let defence = monster.stats.defMod * baseMonster.defence;
-    let speed = monster.stats.spdMod * baseMonster.speed;
-    let strength = monster.stats.strMod * baseMonster.strength;
+    let defence = defMod * baseMonster.defence;
+    let speed = spdMod * baseMonster.speed;
+    let strength = strMod * baseMonster.strength;
     let weaponn = weapons[rng(0, weapons.length - 1)];
     let attack = new weapon(weaponn[0], weaponn[1], weaponn[2]);
     let level = level;

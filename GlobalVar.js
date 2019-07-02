@@ -9,20 +9,10 @@ const forestPool = {
     uncommon: {},
     common: [{
         name: 'slime',
-        stats: {
-            hpMod: 1,
-            defMod: 1,
-            strMod: 1,
-            spdMod: 1
-        }
+        type: 'small'
     }, {
         name: 'goblin',
-        stats: {
-            hpMod: 1,
-            defMod: 1,
-            strMod: 1,
-            spdMod: 1
-        }
+        type: 'normal'
     }]
 };
 const cavePool = {
@@ -31,20 +21,10 @@ const cavePool = {
     uncommon: {},
     common: [{
         name: 'orc',
-        stats: {
-            hpMod: 1,
-            defMod: 1,
-            strMod: 1,
-            spdMod: 1
-        }
+        type: 'big'
     }, {
         name: 'spider',
-        stats: {
-            hpMod: 1,
-            defMod: 1,
-            strMod: 1,
-            spdMod: 1
-        }
+        type: 'bug'
     }]
 };
 const dungeonPool = {
@@ -53,12 +33,7 @@ const dungeonPool = {
     uncommon: {},
     common: [{
         name: 'skeleton',
-        stats: {
-            hpMod: 1,
-            defMod: 1,
-            strMod: 1,
-            spdMod: 1
-        }
+        type: 'normal'
     }]
 };
 const weapons = [
