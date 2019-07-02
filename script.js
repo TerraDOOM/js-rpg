@@ -110,6 +110,19 @@ class  Zone {
 }
 //---------------------------------------CHANGE UI--------------------------
 function setUpGame(){
+    let body = document.getElementsByTagName('body');
+let UI = '<div id="mainWindow">\n' +
+    '        <div id="bigWindow"></div>\n' +
+    '        <div id="inventory">\n' +
+    '            <div id="heathRed" style="background-color: #dc0700; width: 100%; height: 10%;">\n' +
+    '                <div id="healthGreen" style="margin-top: 10px;background-color: #4CAF50; width: 100%; height: 100%;"></div>\n' +
+    '            </div>\n' +
+    '        </div>\n' +
+    '        <div id="options"></div>\n' +
+    '    </div>\n' +
+    '    <div id="smallConsole"></div>';
+ body[0].innerHTML = "";
+ body[0].innerHTML = UI;
 
 }
 // start this shit fam
