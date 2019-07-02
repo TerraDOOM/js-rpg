@@ -1,47 +1,57 @@
-class  Zone {
-    constructor(){
+class Zone {
+    constructor() {
         this.zone = zonePossible[rng(0, zonePossible.length - 1)];
         this.maxLevel = 10;
         this.minLevel = 1;
-        this.moveNumber = rng(5,10);
+        this.moveNumber = rng(5, 10);
         this.move = 0;
     }
-    generateMonster(){
-        let arrayOfName = '';
-        switch (this.zone) {
-            case 'forest':
-                arrayOfName = monsterForest;
-                break;
-            case 'cave':
-                arrayOfName = monsterCave;
-                break;
-            case 'dungeon':
-                arrayOfName = monsterDungeon;
-                break;
-            default:
-                arrayOfName = monsterForest;
-                break;
-        }
-        let name = arrayOfName[rng(0, arrayOfName.length - 1)];
-        let type = 'MONSTER';
-        let hp = rng(50, 150);
-        let maxHP = hp;
-        let defence = rng(1, 20);
-        let speed = rng(1, 20);
-        let strength = rng(1, 20);
-        let weaponn = weapons[rng(0, weapons.length - 1)];
-        let attack = new weapon(weaponn[0],weaponn[1], weaponn[2]);
-        let level = rng(this.minLevel,this.maxLevel);
-        let exp = Math.floor(level*1.40);
-        let monster = new Monster(name, type, hp, defence, speed, strength, attack, exp,level);
-        return monster ;
-    }
-    changeZone(){
+
+    changeZone() {
         this.minLevel = this.maxLevel + 1;
         this.maxLevel = this.maxLevel + 10;
-        this.moveNumber = rng(5,10);
+        this.moveNumber = rng(5, 10);
         this.move = 0;
         this.zone = zonePossible[rng(0, zonePossible.length - 1)];
     }
 
+}
+
+// placeholders wooo
+const COMMON_MAX = 10;
+const UNCOMMON_MAX = 20;
+const RARE_MAX = 30;
+const LEGENDARY_MAX = 40;
+
+function generateMonster(pool, level) {
+    let rarityRoll = rng(1, LEGENDARY_MAX);
+    let monster;
+
+    if (1 <= rarityRoll <= COMMON_MAX) {
+        monster = randomChoice(pool.common);
+    } else if (COMMON_MAX < rarityRoll <= UNCOMMON_MAX) {
+        monster = randomChoice(pool.uncommon);
+    } else if (UNCOMMON_MAX < rarityRoll <= RARE_MAX) {
+        monster = randomChoice(pool.rare);
+    } else if (RARE_MAX < rarityRoll) {
+        monster = randomChoice(pool.legendary);
+    } else {
+        console.log("wtf lmao");
+    }
+
+    let baseMonster = baseAptitudeFromLevel(level);
+
+    let name = monster.name;
+    let type = monster.name;
+    let hp = monster.stats.hpMod * baseMonster.hp;
+    let maxHP = hp;
+    let defence = monster.stats.defMod * baseMonster.defence;
+    let speed = monster.stats.spdMod * baseMonster.speed;
+    let strength = monster.stats.strMod * baseMonster.strength;
+    let weaponn = weapons[rng(0, weapons.length - 1)];
+    let attack = new weapon(weaponn[0], weaponn[1], weaponn[2]);
+    let level = level;
+    let exp = Math.floor(level * 1.40);
+    let monster = new Monster(name, type, hp, defence, speed, strength, attack, exp, level);
+    return monster;
 }

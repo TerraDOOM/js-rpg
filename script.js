@@ -4,11 +4,15 @@ let player = "";
 let monster = "";
 let currentEvent = "";
 let zone = "";
-let zonePossible = ['forest','cave','dungeon'];
-let monsterForest = ['slime','goblin'];
-let monsterCave = ['orc','spider'];
+let zonePossible = ['forest', 'cave', 'dungeon'];
+let monsterForest = ['slime', 'goblin'];
+let monsterCave = ['orc', 'spider'];
 let monsterDungeon = ['skeleton'];
-let weapons = [['club',10,'blunt'],['sword',10,'cut'],['bow',10,'ranged']];
+let weapons = [
+    ['club', 10, 'blunt'],
+    ['sword', 10, 'cut'],
+    ['bow', 10, 'ranged']
+];
 
 //--------------------------------------------CLASS--------------------------
 
@@ -26,7 +30,7 @@ class Man {
         this.exp = exp;
     }
 }
-class weapon {
+class Weapon {
     constructor(name, power, type) {
         this.name = name;
         this.power = power;
@@ -47,7 +51,7 @@ class Monster extends Man {
     }
 }
 class NPC extends Man {
-    constructor(){
+    constructor() {
         let arrayOfName = ['Bee', 'vivi', 'gemini'];
         let name = arrayOfName[rng(0, arrayOfName.length - 1)];
         let type = 'FRIENDLY';
@@ -62,23 +66,23 @@ class NPC extends Man {
         this.inv['good'];
     }
 }
-class  Zone {
-    constructor(){
+class Zone {
+    constructor() {
         this.zone = zonePossible[rng(0, zonePossible.length - 1)];
         this.maxLevel = 10;
         this.minLevel = 1;
-        this.moveNumber = rng(5,10);
+        this.moveNumber = rng(5, 10);
         this.move = 0;
     }
-    generateMonster(){
+    generateMonster() {
         let arrayOfName = '';
         switch (this.zone) {
             case 'forest':
                 arrayOfName = monsterForest;
                 break;
             case 'cave':
-                 arrayOfName = monsterCave;
-                 break;
+                arrayOfName = monsterCave;
+                break;
             case 'dungeon':
                 arrayOfName = monsterDungeon;
                 break;
@@ -94,35 +98,35 @@ class  Zone {
         let speed = rng(1, 20);
         let strength = rng(1, 20);
         let weaponn = weapons[rng(0, weapons.length - 1)];
-        let attack = new weapon(weaponn[0],weaponn[1], weaponn[2]);
+        let attack = new weapon(weaponn[0], weaponn[1], weaponn[2]);
         let exp = Math.floor((defence * speed * strength) / 3);
         let monster = new Monster(name, type, hp, defence, speed, strength, attack, exp);
-        return monster ;
+        return monster;
     }
-    changeZone(){
+    changeZone() {
         this.minLevel = this.maxLevel + 1;
         this.maxLevel = this.maxLevel + 10;
-        this.moveNumber = rng(5,10);
+        this.moveNumber = rng(5, 10);
         this.move = 0;
         this.zone = zonePossible[rng(0, zonePossible.length - 1)];
     }
 
 }
 //---------------------------------------CHANGE UI--------------------------
-function setUpGame(){
+function setUpGame() {
     let body = document.getElementsByTagName('body');
-let UI = '<div id="mainWindow">\n' +
-    '        <div id="bigWindow"></div>\n' +
-    '        <div id="inventory">\n' +
-    '            <div id="heathRed" style="background-color: #dc0700; width: 100%; height: 10%;">\n' +
-    '                <div id="healthGreen" style="margin-top: 10px;background-color: #4CAF50; width: 100%; height: 100%;"></div>\n' +
-    '            </div>\n' +
-    '        </div>\n' +
-    '        <div id="options"></div>\n' +
-    '    </div>\n' +
-    '    <div id="smallConsole"></div>';
- body[0].innerHTML = "";
- body[0].innerHTML = UI;
+    let UI = '<div id="mainWindow">\n' +
+        '        <div id="bigWindow"></div>\n' +
+        '        <div id="inventory">\n' +
+        '            <div id="heathRed" style="background-color: #dc0700; width: 100%; height: 10%;">\n' +
+        '                <div id="healthGreen" style="margin-top: 10px;background-color: #4CAF50; width: 100%; height: 100%;"></div>\n' +
+        '            </div>\n' +
+        '        </div>\n' +
+        '        <div id="options"></div>\n' +
+        '    </div>\n' +
+        '    <div id="smallConsole"></div>';
+    body[0].innerHTML = "";
+    body[0].innerHTML = UI;
 
 }
 // start this shit fam
@@ -162,14 +166,14 @@ function printClass() {
             attack = new weapon("cross", 10, 'Holy');
             break;
         default:
-            consoleGame(param=["Your class doesn't! exist naughty boy!"]);
+            consoleGame(param = ["Your class doesn't! exist naughty boy!"]);
             return; //forced exit so the game doesn't try to construct a object with no data;
             break;
     }
     setUpGame();
     zone = new Zone();
     player = new Player(name, type, hp, defence, speed, strength, attack);
-    consoleGame(param=['you are in a ' + zone.zone +' and you are just walking around.'])
+    consoleGame(param = ['you are in a ' + zone.zone + ' and you are just walking around.'])
     walking();
 }
 //very hard. sorry about that. might change by making functions but lazy atm. ):
@@ -177,7 +181,7 @@ function startCombat() {
     clearUI();
     monster = zone.generateMonster();
     currentEvent = "combat";
-    consoleGame(param=['OH NO a ' + monster.name + ' spots you! it has a ' + monster.attack.name]);
+    consoleGame(param = ['OH NO a ' + monster.name + ' spots you! it has a ' + monster.attack.name]);
     //change the window layout
     let para = document.createElement("h1"); //create a new html element
     let node = document.createTextNode("Combat Time"); //create a new string
@@ -204,11 +208,11 @@ function startCombat() {
     element.appendChild(button2);
 }
 //meet an npc
-function startFriendly(){
+function startFriendly() {
     clearUI();
     monster = zone.generateMonster();
     currentEvent = "combat";
-    consoleGame(param=['OH NO a ' + monster.name + ' spots you! it has a ' + monster.attack.name]);
+    consoleGame(param = ['OH NO a ' + monster.name + ' spots you! it has a ' + monster.attack.name]);
     //change the window layout
     let para = document.createElement("h1"); //create a new html element
     let node = document.createTextNode("Combat Time"); //create a new string
@@ -235,7 +239,7 @@ function startFriendly(){
     element.appendChild(button2);
 }
 //function to walk around desu
-function walking(){
+function walking() {
     let para = document.createElement("h1"); //create a new html element
     let node = document.createTextNode("Walking Time"); //create a new string
     para.appendChild(node); //puts the string into the html element
@@ -281,9 +285,9 @@ function eventSetup(type) {
 
 }
 //display shit in the console
-function consoleGame(params){
+function consoleGame(params) {
     let element = document.getElementById("smallConsole"); //gets already existing html element
-    for (i=0; i<params.length; i++) {
+    for (i = 0; i < params.length; i++) {
         let para = document.createElement("p");
         let node = document.createTextNode(params[i]);
         para.appendChild(node);
@@ -302,94 +306,90 @@ function rng(min, max) {
 //---------------------------------------PLAYER ACTION--------------------------
 //the monster attacking you
 function monsterAttacking() {
-    consoleGame(param=['______________MONSTER ATTACK_____________']);
+    consoleGame(param = ['______________MONSTER ATTACK_____________']);
     let randomNumber = rng(1, 30);
     if (randomNumber <= 5) {
-        consoleGame(param=["monster missed oof critical failure"]);
+        consoleGame(param = ["monster missed oof critical failure"]);
     } else if (randomNumber >= 26) {
         let damage = rng(10, 20);
-        consoleGame(param=["the monster really didn't miss you on this one! critical success! you lost " + damage * monster.attack.power + " hp"]);
+        consoleGame(param = ["the monster really didn't miss you on this one! critical success! you lost " + damage * monster.attack.power + " hp"]);
         player.hp = player.hp - damage * monster.attack.power;
     } else {
         let damage = rng(5, 10);
-        consoleGame(param=["the monster hurts you! you lost " + damage * monster.attack.power + " hp"]);
+        consoleGame(param = ["the monster hurts you! you lost " + damage * monster.attack.power + " hp"]);
         player.hp = player.hp - damage * monster.attack.power;
     }
     return playerStatus();
 }
 //you attacking monster
 function attackMonster() {
-    consoleGame(param=['______________ATTACK MONSTER_____________']);
+    consoleGame(param = ['______________ATTACK MONSTER_____________']);
     let randomNumber = rng(1, 30);
     if (randomNumber <= 5) {
-        consoleGame(param=["you miss the monster Critical failure"]);
+        consoleGame(param = ["you miss the monster Critical failure"]);
     } else if (randomNumber >= 26) {
         let damage = rng(10, 20);
-        consoleGame(param=["You sure showed to that monster who's boss! critical success! you dealt " + damage * player.strength + " damage"]);
+        consoleGame(param = ["You sure showed to that monster who's boss! critical success! you dealt " + damage * player.strength + " damage"]);
         monster.hp = monster.hp - (damage * player.attack.power);
     } else {
         let damage = rng(5, 10);
-        consoleGame(param=["you hit the monster and deal " + damage * player.strength + " damage"]);
+        consoleGame(param = ["you hit the monster and deal " + damage * player.strength + " damage"]);
         monster.hp = monster.hp - (damage * player.attack.power);
     }
     return playerStatus();
 }
 //running away from the monster
 function runAway() {
-    consoleGame(param=['______________RUN AWAY_____________']);
+    consoleGame(param = ['______________RUN AWAY_____________']);
     let randomNumber = rng(1, 10);
     if (randomNumber <= 5) {
-        consoleGame(param=["You could not escape :O"]);
+        consoleGame(param = ["You could not escape :O"]);
     } else if (randomNumber >= 6) {
-        consoleGame(param=["You manage to run away :D"]);
+        consoleGame(param = ["You manage to run away :D"]);
         clearUI();
         walking();
         return false;
     }
 }
 //heal the character
-function healCharacter(amount){
+function healCharacter(amount) {
     player.hp = player.hp + amount;
-    if(player.hp > player.maxHP){
+    if (player.hp > player.maxHP) {
         player.hp = player.maxHP;
     }
 }
 //move up a grid
-function walkFront(){
-    let possibility = rng(1,30);
-    if (possibility <= 15){
+function walkFront() {
+    let possibility = rng(1, 30);
+    if (possibility <= 15) {
         eventSetup('combat');
-    }
-    else {
+    } else {
         zone.move = zone.move + 1;
-        consoleGame(param=['you move 1 frame desu']);
+        consoleGame(param = ['you move 1 frame desu']);
         let oldZone = zone.zone;
-        if (zone.moveNumber === zone.move)
-        {
+        if (zone.moveNumber === zone.move) {
             zone.changeZone()
-            consoleGame(param=['you got out of the ' + oldZone + ' and now you are in a ' + zone.zone + ' and you are just walking around.']);
+            consoleGame(param = ['you got out of the ' + oldZone + ' and now you are in a ' + zone.zone + ' and you are just walking around.']);
         }
     }
 }
 //rest to heal HP or fight monster
-function rest(){
-    consoleGame(param=['_______________REST____________']);
-    let possibility = rng(1,30);
-    if (possibility <= 10){
-        consoleGame(param=['you are woken up at night by the sound of rustling']);
+function rest() {
+    consoleGame(param = ['_______________REST____________']);
+    let possibility = rng(1, 30);
+    if (possibility <= 10) {
+        consoleGame(param = ['you are woken up at night by the sound of rustling']);
         eventSetup('combat');
-    }
-    else if (possibility >=25){
-        consoleGame(param=['you are woken up at night by the sound of rustling']);
-        let heal = rng(30,60);
+    } else if (possibility >= 25) {
+        consoleGame(param = ['you are woken up at night by the sound of rustling']);
+        let heal = rng(30, 60);
         healCharacter(heal);
-        consoleGame(param=['You meet a lovely lady called gemini she heals you with her ASMR power you regain '+heal+'hp :D']);
+        consoleGame(param = ['You meet a lovely lady called gemini she heals you with her ASMR power you regain ' + heal + 'hp :D']);
 
-    }
-    else {
-        let heal = rng(20,40);
+    } else {
+        let heal = rng(20, 40);
         healCharacter(heal);
-        consoleGame(param=['you rest a little bit and you feel refreshed you regain '+heal+'hp :D']);
+        consoleGame(param = ['you rest a little bit and you feel refreshed you regain ' + heal + 'hp :D']);
 
     }
 }
@@ -414,7 +414,7 @@ function doAction(action) {
                 if (maybe) runAway();
             }
             break;
-        case 'Move' :
+        case 'Move':
             walkFront();
             break;
         case 'Rest':
@@ -427,25 +427,25 @@ function doAction(action) {
 }
 //leveling up
 function levelUp() {
-    consoleGame(param=['______________LEVEL UP_____________']);
+    consoleGame(param = ['______________LEVEL UP_____________']);
     while (player.levelUp <= player.exp) {
         player.level = player.level + 1;
         let number = player.level;
         player.levelUp = (1.8 * (number + 100)) + player.levelUp;
-        consoleGame(param=['Congratulations, you leveled up! You are now level ' + player.level]);
+        consoleGame(param = ['Congratulations, you leveled up! You are now level ' + player.level]);
     }
-    consoleGame(param=['you need ' + player.levelUp + ' xp to level up again']);
+    consoleGame(param = ['you need ' + player.levelUp + ' xp to level up again']);
 }
 //gives the player's status
 function playerStatus() {
-    consoleGame(param=['______________PLAYER STATUS_____________']);
+    consoleGame(param = ['______________PLAYER STATUS_____________']);
     if (player.hp <= 0) {
-        consoleGame(param=["you lost lmao fuck you"]);
+        consoleGame(param = ["you lost lmao fuck you"]);
         clearUI();
         gameOver("killed by a monster");
     } else if (monster.hp <= 0) {
-        consoleGame(param=["the monster died :D"]);
-        consoleGame(param=["you gained " + monster.exp + " xp"])
+        consoleGame(param = ["the monster died :D"]);
+        consoleGame(param = ["you gained " + monster.exp + " xp"])
         player.exp = monster.exp + player.exp;
         if (player.exp >= player.levelUp) {
             levelUp();
@@ -453,14 +453,14 @@ function playerStatus() {
         clearUI();
         walking();
     } else {
-        consoleGame(param=["your health: " + player.hp]);
-        consoleGame(param=["monster's health: " + monster.hp]);
+        consoleGame(param = ["your health: " + player.hp]);
+        consoleGame(param = ["monster's health: " + monster.hp]);
         return true;
     }
 }
 //game over
 function gameOver(causeOfDeath) {
-    consoleGame(param=['______________GAME OVER_____________']);
+    consoleGame(param = ['______________GAME OVER_____________']);
     let para = document.createElement("h1"); //create a new html element
     let node = document.createTextNode("GAME OVER"); //create a new string
     para.appendChild(node); //puts the string into the html element
