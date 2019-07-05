@@ -10,9 +10,9 @@ const forestPool = {
         jokes:['Hello i am the brother of the forest you must defeat me to gain the power']
     }],
     rare: [{
-        name:'lazer kiwi',
+        name:'lazer emu',
         type:'small',
-        jokes:['AY CUNT WTF YO LOOKIN AT ???']
+        jokes:['AY CUNT WTF YO LOOKIN AT ???',' "Fuck your Nukes! Burn in my lasers!"']
     },{
         name:'boxing kangaroo',
         type:'animal',

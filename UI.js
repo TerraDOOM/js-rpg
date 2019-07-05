@@ -16,7 +16,7 @@ function setUpGame(){
 function setUpCreation(){
     let body = document.getElementsByTagName('body');
     let Ui = '<div id="createCharacter">\n' +
-        '            <audio  controls loop autoplay volume="0.0">\n' +
+        '            <audio loop autoplay volume="0.0">\n' +
         '                <source src="files/music/Stellardrone-Eternity.mp3">\n' +
         '            </audio>\n' +
         '            <h1>Welcome to Infinity Dungeon</h1>\n' +
