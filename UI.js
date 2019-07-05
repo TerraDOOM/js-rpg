@@ -12,7 +12,40 @@ function setUpGame(){
         '    <div id="smallConsole"></div>';
     body[0].innerHTML = "";
     body[0].innerHTML = UI;
-
+}
+function setUpCreation(){
+    let body = document.getElementsByTagName('body');
+    let Ui = '<div id="createCharacter">\n' +
+        '            <audio  controls loop autoplay volume="0.0">\n' +
+        '                <source src="files/music/Stellardrone-Eternity.mp3">\n' +
+        '            </audio>\n' +
+        '            <h1>Welcome to Infinity Dungeon</h1>\n' +
+        '            <h2>Where the ride never ends!</h2>\n' +
+        '            <h3 class="white">Create Your character!</h3>\n' +
+        '            <table align="center">\n' +
+        '                <tr>\n' +
+        '                    <td>\n' +
+        '                        <p>Name :</p>\n' +
+        '                    <td><input type="text" id="name"></td>\n' +
+        '                </tr>\n' +
+        '                <tr>\n' +
+        '                    <td>\n' +
+        '                        <p>Class</p>\n' +
+        '                    </td>\n' +
+        '                    <td><select id="class">\n' +
+        '                            <option value="warrior">Warrior</option>\n' +
+        '                            <option value="barbarian">Barbarian</option>\n' +
+        '                            <option value="thief">Thief</option>\n' +
+        '                            <option value="monk">Monk</option>\n' +
+        '                        </select>\n' +
+        '                </tr>\n' +
+        '            </table>\n' +
+        '            <button onclick="printClass()">make character</button>\n' +
+        '            <p><a href="https://www.youtube.com/watch?v=m-0H4HOATOM">music source</a></p>\n' +
+        '        </div>\n' +
+        '\n';
+    body[0].innerHTML = "";
+    body[0].innerHTML = Ui;
 }
 // start this shit fam
 function printClass() {
@@ -64,7 +97,7 @@ function printClass() {
 //very hard. sorry about that. might change by making functions but lazy atm. ):
 function startCombat() {
     clearUI();
-    monster = zone.generateMonster();
+    monster = generateMonster(testPool,1);
     currentEvent = "combat";
     consoleGame(param=['OH NO a ' + monster.name + ' spots you! it has a ' + monster.attack.name]);
     //change the window layout
@@ -180,6 +213,18 @@ function consoleGame(params){
     }
     let para = document.createElement("hr");
     element.appendChild(para);
+}
+function restartGame(){
+    let element = document.getElementById("bigWindow"); //gets already existing html element
+    let button1 = document.createElement("button");
+    let textButton1 = document.createTextNode("Restart");
+    button1.appendChild(textButton1);
+    button1.classList.add('block');
+    button1.onclick = function () {
+        setUpCreation()
+    }; //connecting function to the combat
+    element.appendChild(button1);
+
 }
 //change the health bar
 function healthBar(){

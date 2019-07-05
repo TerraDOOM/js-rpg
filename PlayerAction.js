@@ -173,6 +173,7 @@ function gameOver(causeOfDeath) {
     node = document.createTextNode(causeOfDeath);
     para.appendChild(node);
     element.appendChild(para);
+    restartGame();
 }
 //start the script when the whole page is loaded needed for html element to work bc they don't exist when the script executes normally (fix later)
 //window.onload = printClass;

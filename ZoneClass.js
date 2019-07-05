@@ -40,44 +40,53 @@ function generateMonster(pool, level) {
     }
 
     let baseMonster = baseAptitudeFromLevel(level);
+    let defMod = 0;
+    let spdMod = 0;
+    let strMod = 0;
+    let hpMod = 0;
     switch (monster.type){
+
         case 'small':
-            let defMod = 1;
-            let spdMod = 1;
-            let strMod = 1;
+             defMod = 1;
+             spdMod = 1;
+             strMod = 1;
+             hpMod = 1;
             break;
         case 'normal':
-            let defMod = 1;
-            let spdMod = 1;
-            let strMod = 1;
+             defMod = 1;
+             spdMod = 1;
+             strMod = 1;
+             hpMod = 1;
             break;
         case 'big':
-            let defMod = 1;
-            let spdMod = 1;
-            let strMod = 1;
+             defMod = 1;
+             spdMod = 1;
+             strMod = 1;
+            hpMod = 1;
             break;
         case 'bug':
-            let defMod = 1;
-            let spdMod = 1;
-            let strMod = 1;
+             defMod = 1;
+             spdMod = 1;
+             strMod = 1;
+            hpMod = 1;
             break;
         default:
-            let defMod = 1;
-            let spdMod = 1;
-            let strMod = 1;
+             defMod = 1;
+             spdMod = 1;
+             strMod = 1;
+            hpMod = 1;
             break;
     }
     let name = monster.name;
     let type = monster.name;
-    let hp = monster.stats.hpMod * baseMonster.hp;
+    let hp = hpMod * baseMonster.hp;
     let maxHP = hp;
     let defence = defMod * baseMonster.defence;
     let speed = spdMod * baseMonster.speed;
     let strength = strMod * baseMonster.strength;
     let weaponn = weapons[rng(0, weapons.length - 1)];
     let attack = new weapon(weaponn[0], weaponn[1], weaponn[2]);
-    let level = level;
     let exp = Math.floor(level * 1.40);
-    let monster = new Monster(name, type, hp, defence, speed, strength, attack, exp, level);
+     monster = new Monster(name, type, hp, defence, speed, strength, attack, exp, level);
     return monster;
 }

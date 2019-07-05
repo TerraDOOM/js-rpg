@@ -36,6 +36,24 @@ const dungeonPool = {
         type: 'normal'
     }]
 };
+const testPool = {
+    legendary: [{
+        name: 'slime',
+        type: 'small'
+    }],
+    rare: [{
+        name: 'slime',
+        type: 'small'
+    }],
+    uncommon: [{
+        name: 'slime',
+        type: 'small'
+    }],
+    common: [{
+        name: 'slime',
+        type: 'small'
+    }]
+};
 const weapons = [
     ['club', 10, 'blunt'],
     ['sword', 10, 'cut'],
