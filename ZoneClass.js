@@ -70,6 +70,12 @@ function generateMonster(pool, level) {
              strMod = 1;
             hpMod = 1;
             break;
+        case 'animal':
+            defMod = 1;
+            spdMod = 1;
+            strMod = 1;
+            hpMod = 1;
+            break;
         default:
              defMod = 1;
              spdMod = 1;
@@ -87,6 +93,6 @@ function generateMonster(pool, level) {
     let weaponn = weapons[rng(0, weapons.length - 1)];
     let attack = new weapon(weaponn[0], weaponn[1], weaponn[2]);
     let exp = Math.floor(level * 1.40);
-     monster = new Monster(name, type, hp, defence, speed, strength, attack, exp, level);
+     monster = new Monster(name, type, hp, defence, speed, strength, attack, exp, level,monster.jokes);
     return monster;
 }

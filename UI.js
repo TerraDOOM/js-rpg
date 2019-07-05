@@ -100,6 +100,7 @@ function startCombat() {
     monster = generateMonster(testPool,1);
     currentEvent = "combat";
     consoleGame(param=['OH NO a ' + monster.name + ' spots you! it has a ' + monster.attack.name]);
+    consoleGame(param=[monster.arrayOfJokes[0]]);
     //change the window layout
     let para = document.createElement("h1"); //create a new html element
     let node = document.createTextNode("Combat Time"); //create a new string
