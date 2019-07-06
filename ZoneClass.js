@@ -5,6 +5,20 @@ class Zone {
         this.minLevel = 1;
         this.moveNumber = rng(5, 10);
         this.move = 0;
+        switch (this.zone){
+            case 'forest':
+                this.npcPool = forestNPC;
+                this.monsterPool = forestPool;
+                break;
+            case 'cave':
+                this.npcPool = caveNPC;
+                this.monsterPool = cavePool;
+                break;
+            case 'dungeon':
+                this.npcPool = dungeonNPC;
+                this.monsterPool = dungeonPool;
+                break;
+        }
     }
 
     changeZone() {
@@ -22,7 +36,9 @@ const COMMON_MAX = 10;
 const UNCOMMON_MAX = 20;
 const RARE_MAX = 30;
 const LEGENDARY_MAX = 40;
+function generateNPC(){
 
+}
 function generateMonster(pool, level) {
     let rarityRoll = rng(1, LEGENDARY_MAX);
     let monster;

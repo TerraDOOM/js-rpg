@@ -1,6 +1,9 @@
 function setUpGame(){
     let body = document.getElementsByTagName('body');
-    let UI = '<div id="mainWindow">\n' +
+    let UI = '            <audio loop autoplay volume="0.0">\n' +
+        '                <source src="files/music/dialga328 - Pokemon- Mystery Dungeon Explorers of Sky- Dont Ever Forget- Music.mp3">\n' +
+        '            </audio>\n' +
+        '<div id="mainWindow">\n' +
         '        <div id="bigWindow"></div>\n' +
         '        <div id="inventory">\n' +
         '            <div id="heathRed" style="background-color: #dc0700; width: 100%; height: 10%;">\n' +
@@ -111,6 +114,8 @@ function startCombat() {
     let textButton1 = document.createTextNode("Fight");
     let button2 = document.createElement("button");
     let textButton2 = document.createTextNode("Run");
+    let audio = document.getElementsByTagName("audio");
+    audio.innerHTML = '<source src="files/music/Stellardrone-Eternity.mp3">';
     button1.appendChild(textButton1);
     button2.appendChild(textButton2);
     button1.classList.add('block');
@@ -129,33 +134,34 @@ function startCombat() {
 //meet an npc
 function startFriendly(){
     clearUI();
-    monster = zone.generateMonster();
-    currentEvent = "combat";
-    consoleGame(param=['OH NO a ' + monster.name + ' spots you! it has a ' + monster.attack.name]);
+    npc = new NPC;
+    currentEvent = "friendly";
+    consoleGame(param=["you see "+npc.name,npc.greetings[0]]);
     //change the window layout
     let para = document.createElement("h1"); //create a new html element
-    let node = document.createTextNode("Combat Time"); //create a new string
+    let node = document.createTextNode("NPC TIME"); //create a new string
     para.appendChild(node); //puts the string into the html element
     let element = document.getElementById("bigWindow"); //gets already existing html element
     element.appendChild(para); //put the new html element inside of the already existing html element
     let button1 = document.createElement("button");
-    let textButton1 = document.createTextNode("Fight");
+    let textButton1 = document.createTextNode("talk");
     let button2 = document.createElement("button");
-    let textButton2 = document.createTextNode("Run");
+    let textButton2 = document.createTextNode("rest");
     button1.appendChild(textButton1);
     button2.appendChild(textButton2);
     button1.classList.add('block');
     button2.classList.add('block');
     button1.onclick = function () {
-        doAction("fight")
+        doAction("talk")
     }; //connecting function to the combat
     button2.onclick = function () {
-        doAction("runAway")
+        doAction("npcRest")
     };
 
     element = document.getElementById("options"); //gets already existing html element
     element.appendChild(button1);
     element.appendChild(button2);
+    soundTime("Stellardrone-Eternity.mp3");
 }
 //function to walk around desu
 function walking(){
@@ -182,6 +188,7 @@ function walking(){
     element = document.getElementById("options"); //gets already existing html element
     element.appendChild(button1);
     element.appendChild(button2);
+    soundTime("Pokemon-Dont Ever Forget.mp3");
 }
 //removes every child nodes from both options AND main screen
 function clearUI() {
@@ -230,4 +237,10 @@ function restartGame(){
 //change the health bar
 function healthBar(){
     document.getElementById('healthGreen').style.width = percentage(player.hp,player.maxHP);
+}
+function soundTime(music){
+    let audio = document.getElementsByTagName("audio");
+    audio[0].innerHTML = '<source src="files/music/'+music+'">';
+    audio.load(); //call this to just preload the audio without playing
+    audio.play(); //call this to play the song right away
 }

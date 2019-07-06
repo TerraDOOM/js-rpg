@@ -55,8 +55,11 @@ function healCharacter(amount){
 //move up a grid
 function walkFront(){
     let possibility = rng(1,30);
-    if (possibility <= 15){
+    if (possibility <= 10){
         eventSetup('combat');
+    }
+    else if (possibility <= 20){
+        eventSetup('friendly');
     }
     else {
         zone.move = zone.move + 1;
@@ -76,14 +79,6 @@ function rest(){
     if (possibility <= 10){
         consoleGame(param=['you are woken up at night by the sound of rustling']);
         eventSetup('combat');
-    }
-    else if (possibility >=25){
-        consoleGame(param=['you are woken up at night by the sound of rustling']);
-        let heal = rng(30,60);
-        healCharacter(heal);
-        healthBar();
-        consoleGame(param=['You meet a lovely lady called gemini she heals you with her ASMR power you regain '+heal+'hp :D']);
-
     }
     else {
         let heal = rng(20,40);
@@ -119,6 +114,12 @@ function doAction(action) {
             break;
         case 'Rest':
             rest();
+            break;
+        case 'npcRest':
+            npcRest();
+            break;
+        case 'talk':
+            npcTalk();
             break;
         default:
             console.log("you gay, or game is bugged");
@@ -160,6 +161,18 @@ function playerStatus() {
         healthBar();
         return true;
     }
+}
+//rest with an npc
+function npcRest(){
+    let heal = rng(30,50);
+    player.hp = player.hp + heal;
+    consoleGame(param=["you rest and regain "+heal+"HP"]);
+    healthBar();
+    clearUI();
+    walking();
+}
+function npcTalk(){
+    consoleGame(param=[npc.jokes[rng(0, npc.jokes.length - 1)]]);
 }
 //game over
 function gameOver(causeOfDeath) {

@@ -2,6 +2,22 @@ let player = "";
 let monster = "";
 let currentEvent = "";
 let zone = "";
+let npc = "";
+const forestNPC = [{
+    name: 'bee the fairy',
+    greetings: ['hello traveler how are you doing on this fine day :D'],
+    jokes: ['you sure looks rough don\'t you']
+}];
+const caveNPC = [{
+    name: 'gemini the goblin',
+    greetings:['Hey there big guy how yah doing on this fine day? how about resting your feet and drinking some soup!'],
+    jokes: ["hey i see you look really messed up my boy try drinking some of my soup it will make you feel a lot better promised"]
+}];
+const dungeonNPC = [{
+    name: 'Vivi the medusa',
+    greetings: ['OH MY GOSH ARE YOU A HUMAN ?? OH MY GOSH YOU NEED TO STAY HERE FOR THE NIGHT I HAVE SO MANY QUESTIONS'],
+    jokes: ["i love love love humans, everyday i watch those old tapes i keep watching them over and over and over again"]
+}];
 const zonePossible = ['forest', 'cave', 'dungeon'];
 const forestPool = {
     legendary: [{
