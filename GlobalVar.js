@@ -14,7 +14,7 @@ const caveNPC = [{
     jokes: ["hey i see you look really messed up my boy try drinking some of my soup it will make you feel a lot better promised"]
 }];
 const dungeonNPC = [{
-    name: 'Vivi the medusa',
+    name: 'Amy the medusa',
     greetings: ['OH MY GOSH ARE YOU A HUMAN ?? OH MY GOSH YOU NEED TO STAY HERE FOR THE NIGHT I HAVE SO MANY QUESTIONS'],
     jokes: ["i love love love humans, everyday i watch those old tapes i keep watching them over and over and over again"]
 }];
