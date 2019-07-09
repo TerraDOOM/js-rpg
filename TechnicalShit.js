@@ -15,7 +15,7 @@ function xpForNextLevel(level) {
 // level unused for now
 function baseAptitudeFromLevel(level) {
     console.log("baseAptitudeFromLevel is still not fully implemented");
-    let baseXp = Math.floor((xpForNextLevel(level) - xpForNextLevel(level - 1)) / (10 * Math.log(level)));
+    let baseXp = Math.floor((xpForNextLevel(level) - xpForNextLevel(level - 1)) / (10 * Math.log(level + 1)));
     let baseSkill = Math.floor(10 * Math.sqrt(level));
     return {
         strength: baseSkill,
