@@ -1,13 +1,15 @@
 function setUpGame(){
     let body = document.getElementsByTagName('body');
     let UI = '            <audio loop autoplay volume="0.0">\n' +
-        '                <source src="files/music/dialga328 - Pokemon- Mystery Dungeon Explorers of Sky- Dont Ever Forget- Music.mp3">\n' +
+        '                <source src="files/music/Pokemon-Dont Ever Forget.mp3">\n' +
         '            </audio>\n' +
         '<div id="mainWindow">\n' +
         '        <div id="bigWindow"></div>\n' +
         '        <div id="inventory">\n' +
         '            <div id="heathRed" style="background-color: #dc0700; width: 100%; height: 10%;">\n' +
         '                <div id="healthGreen" style="margin-top: 10px;background-color: #4CAF50; width: 100%; height: 100%;"></div>\n' +
+        '            </div>\n' +
+        '            <div id="stat">\n' +
         '            </div>\n' +
         '        </div>\n' +
         '        <div id="options"></div>\n' +
@@ -60,7 +62,7 @@ function printClass() {
     let defence = 0;
     let speed = 0;
     let strength = 0;
-    attack = "";
+    let attack = { name: "", power: "" , type: ""};
     switch (type) {
         case "warrior":
             defence = 10;
@@ -88,13 +90,15 @@ function printClass() {
             break;
         default:
             consoleGame(param=["Your class doesn't! exist naughty boy!"]);
+            consoleGame(param=[player.attack]);
             return; //forced exit so the game doesn't try to construct a object with no data;
             break;
     }
     setUpGame();
     zone = new Zone();
     player = new Player(name, type, hp, defence, speed, strength, attack);
-    consoleGame(param=['you are in a ' + zone.zone +' and you are just walking around.'])
+    displayStat();
+    consoleGame(param=['you are in a ' + zone.zone +' and you are just walking around.']);
     walking();
 }
 //very hard. sorry about that. might change by making functions but lazy atm. ):
@@ -136,7 +140,7 @@ function startFriendly(){
     clearUI();
     npc = new NPC;
     currentEvent = "friendly";
-    consoleGame(param=["you see "+npc.name,npc.greetings[0]]);
+    consoleGame(param=["you see "+npc.name,npc.greetings[rng(0, npc.greetings.length - 1)]]);
     //change the window layout
     let para = document.createElement("h1"); //create a new html element
     let node = document.createTextNode("NPC TIME"); //create a new string
@@ -241,6 +245,14 @@ function healthBar(){
 function soundTime(music){
     let audio = document.getElementsByTagName("audio");
     audio[0].innerHTML = '<source src="files/music/'+music+'">';
-    audio.load(); //call this to just preload the audio without playing
-    audio.play(); //call this to play the song right away
+}
+function displayImage(imgSRC) {
+}
+function displayStat(){
+    let statWindow =document.getElementById('stat');
+    statWindow.innerHTML =
+        '<p>strength: '+player.strength+'</p>' +
+        '<p>speed: '+player.speed+'</p>' +
+        '<p>defence: '+player.defence+'</p>' +
+        '<p>weapon: '+player.attack.name+'</p>';
 }
