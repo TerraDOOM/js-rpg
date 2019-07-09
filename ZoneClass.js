@@ -60,8 +60,8 @@ function generateMonster(pool, level) {
     let spdMod = 0;
     let strMod = 0;
     let hpMod = 0;
+    let xpMod = 1.0;
     switch (monster.type){
-
         case 'small':
              defMod = 1;
              spdMod = 1;
@@ -108,7 +108,7 @@ function generateMonster(pool, level) {
     let strength = strMod * baseMonster.strength;
     let weaponn = weapons[rng(0, weapons.length - 1)];
     let attack = new weapon(weaponn[0], weaponn[1], weaponn[2]);
-    let exp = Math.floor(level * 1.40);
+    let exp = xpMod * baseMonster.xp;
      monster = new Monster(name, type, hp, defence, speed, strength, attack, exp, level,monster.jokes);
     return monster;
 }

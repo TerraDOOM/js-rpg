@@ -13,15 +13,16 @@ function xpForNextLevel(level) {
 }
 
 // level unused for now
-function baseAptitudeFromLevel(_level) {
+function baseAptitudeFromLevel(level) {
     console.log("baseAptitudeFromLevel is still not fully implemented");
-    let baseAptSkill = player.levelUp / (10*math.log(_level));
+    let baseXp = Math.floor((xpForNextLevel(level) - xpForNextLevel(level - 1)) / (10 * Math.log(level)));
+    let baseSkill = Math.floor(10 * Math.sqrt(level));
     return {
-        strength: baseAptSkill,
-        speed: baseAptSkill,
+        strength: baseSkill,
+        speed: baseSkill,
         hp: 10,
-        defence: baseAptSkill,
-        xp: 10 // shrug
+        defence: baseSkill,
+        xp: baseXp,
     };
 }
 
