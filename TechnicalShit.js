@@ -14,7 +14,10 @@ function xpForNextLevel(level) {
 
 // level unused for now
 function baseAptitudeFromLevel(level) {
-    console.log("baseAptitudeFromLevel is still not fully implemented");
+    if (level <= 0) {
+        console.log("level is <= 0, this shouldn't happen, setting level to 1");
+        level = 1;
+    }
     let baseXp = Math.floor((xpForNextLevel(level) - xpForNextLevel(level - 1)) / (10 * Math.log(level + 1)));
     let baseSkill = Math.floor(10 * Math.sqrt(level));
     return {
@@ -25,6 +28,18 @@ function baseAptitudeFromLevel(level) {
         xp: baseXp,
     };
 }
+
+let fibArray = [0, 1];
+
+function fib(n) {
+    if (typeof fibArray[n] === 'undefined') {
+        fibArray[n] = fib(n - 1) + fib(n - 2);
+        return fibArray[n];
+    } else {
+        return fibArray[n];
+    }
+}
+
 
 // pick a random element from an array
 function randomChoice(array) {
