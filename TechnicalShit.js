@@ -8,8 +8,11 @@ function percentage(a, b) {
     return (a / b) * 100;
 }
 
+const XP_BASE = 10;
+const XP_FACTOR = 1.3;
+
 function xpForNextLevel(level) {
-    return Math.floor(10 * ((1 - Math.pow(1.3, level)) / (1 - 1.3)));
+    return Math.floor(XP_BASE * ((1 - Math.pow(XP_FACTOR, level)) / (1 - XP_FACTOR)));
 }
 
 // level unused for now
@@ -18,7 +21,7 @@ function baseAptitudeFromLevel(level) {
         console.log("level is <= 0, this shouldn't happen, setting level to 1");
         level = 1;
     }
-    let baseXp = Math.floor((xpForNextLevel(level) - xpForNextLevel(level - 1)) / (10 * Math.log(level + 1)));
+    let baseXp = Math.max(Math.floor((xpForNextLevel(level) - xpForNextLevel(level - 1)) / (10 * Math.sqrt(level + 1))), 5);
     let baseSkill = Math.floor(10 * Math.sqrt(level));
     return {
         strength: baseSkill,
@@ -39,7 +42,6 @@ function fib(n) {
         return fibArray[n];
     }
 }
-
 
 // pick a random element from an array
 function randomChoice(array) {
