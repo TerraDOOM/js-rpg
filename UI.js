@@ -1,24 +1,28 @@
-function setUpGame(){
+function setUpGame() {
     let body = document.getElementsByTagName('body');
-    let UI = '            <audio loop autoplay volume="0.0">\n' +
-        '                <source src="files/music/Pokemon-Dont Ever Forget.mp3">\n' +
-        '            </audio>\n' +
+    let UI =
+        '<audio loop autoplay volume="0.0">\n' +
+        '   <source src="files/music/Pokemon-Dont Ever Forget.mp3">\n' +
+        '</audio>\n' +
         '<div id="mainWindow">\n' +
-        '        <div id="bigWindow"></div>\n' +
-        '        <div id="inventory">\n' +
-        '            <div id="heathRed" style="background-color: #dc0700; width: 100%; height: 10%;">\n' +
-        '                <div id="healthGreen" style="margin-top: 10px;background-color: #4CAF50; width: 100%; height: 100%;"></div>\n' +
-        '            </div>\n' +
-        '            <div id="stat">\n' +
-        '            </div>\n' +
-        '        </div>\n' +
-        '        <div id="options"></div>\n' +
-        '    </div>\n' +
-        '    <div id="smallConsole"></div>';
+        '   <div id="bigWindow"></div>\n' +
+        '   <div id="inventory">\n' +
+        '       <div id="healthBar">' +
+        '           <div id="healthRed">\n' +
+        '               <div id="healthGreen"></div>\n' +
+        '           </div>\n' +
+        '       </div>' +
+        '       <div id="stat">\n' +
+        '       </div>\n' +
+        '       </div>\n' +
+        '   <div id="smallConsole"></div>' +
+        '   <div id="options"></div>\n' +
+        '</div>\n';
     body[0].innerHTML = "";
     body[0].innerHTML = UI;
 }
-function setUpCreation(){
+
+function setUpCreation() {
     let body = document.getElementsByTagName('body');
     let Ui = '<div id="createCharacter">\n' +
         '            <audio loop autoplay volume="0.0">\n' +
@@ -62,7 +66,11 @@ function printClass() {
     let defence = 0;
     let speed = 0;
     let strength = 0;
-    let attack = { name: "", power: "" , type: ""};
+    let attack = {
+        name: "",
+        power: "",
+        type: ""
+    };
     switch (type) {
         case "warrior":
             defence = 10;
@@ -89,8 +97,8 @@ function printClass() {
             attack = new weapon("cross", 10, 'Holy');
             break;
         default:
-            consoleGame(param=["Your class doesn't! exist naughty boy!"]);
-            consoleGame(param=[player.attack]);
+            consoleGame(param = ["Your class doesn't! exist naughty boy!"]);
+            consoleGame(param = [player.attack]);
             return; //forced exit so the game doesn't try to construct a object with no data;
             break;
     }
@@ -98,16 +106,16 @@ function printClass() {
     zone = new Zone();
     player = new Player(name, type, hp, defence, speed, strength, attack);
     displayStat();
-    consoleGame(param=['you are in a ' + zone.zone +' and you are just walking around.']);
+    consoleGame(param = ['you are in a ' + zone.zone + ' and you are just walking around.']);
     walking();
 }
 //very hard. sorry about that. might change by making functions but lazy atm. ):
 function startCombat() {
     clearUI();
-    monster = generateMonster(testPool,1);
+    monster = generateMonster(testPool, 1);
     currentEvent = "combat";
-    consoleGame(param=['OH NO a ' + monster.name + ' spots you! it has a ' + monster.attack.name]);
-    consoleGame(param=[monster.arrayOfJokes[0]]);
+    consoleGame(param = ['OH NO a ' + monster.name + ' spots you! it has a ' + monster.attack.name]);
+    consoleGame(param = [monster.arrayOfJokes[0]]);
     //change the window layout
     let para = document.createElement("h1"); //create a new html element
     let node = document.createTextNode("Combat Time"); //create a new string
@@ -136,11 +144,11 @@ function startCombat() {
     element.appendChild(button2);
 }
 //meet an npc
-function startFriendly(){
+function startFriendly() {
     clearUI();
     npc = new NPC;
     currentEvent = "friendly";
-    consoleGame(param=["you see "+npc.name,npc.greetings[rng(0, npc.greetings.length - 1)]]);
+    consoleGame(param = ["you see " + npc.name, npc.greetings[rng(0, npc.greetings.length - 1)]]);
     //change the window layout
     let para = document.createElement("h1"); //create a new html element
     let node = document.createTextNode("NPC TIME"); //create a new string
@@ -168,7 +176,7 @@ function startFriendly(){
     soundTime("Stellardrone-Eternity.mp3");
 }
 //function to walk around desu
-function walking(){
+function walking() {
     let para = document.createElement("h1"); //create a new html element
     let node = document.createTextNode("Walking Time"); //create a new string
     para.appendChild(node); //puts the string into the html element
@@ -215,9 +223,9 @@ function eventSetup(type) {
 
 }
 //display shit in the console
-function consoleGame(params){
+function consoleGame(params) {
     let element = document.getElementById("smallConsole"); //gets already existing html element
-    for (i=0; i<params.length; i++) {
+    for (i = 0; i < params.length; i++) {
         let para = document.createElement("p");
         let node = document.createTextNode(params[i]);
         para.appendChild(node);
@@ -226,7 +234,8 @@ function consoleGame(params){
     let para = document.createElement("hr");
     element.appendChild(para);
 }
-function restartGame(){
+
+function restartGame() {
     let element = document.getElementById("bigWindow"); //gets already existing html element
     let button1 = document.createElement("button");
     let textButton1 = document.createTextNode("Restart");
@@ -239,20 +248,24 @@ function restartGame(){
 
 }
 //change the health bar
-function healthBar(){
-    document.getElementById('healthGreen').style.width = percentage(player.hp,player.maxHP);
+function healthBar() {
+    document.getElementById('healthGreen').style.width = percentage(player.hp, player.maxHP);
 }
-function soundTime(music){
+
+function soundTime(music) {
     let audio = document.getElementsByTagName("audio");
-    audio[0].innerHTML = '<source src="files/music/'+music+'">';
+    audio[0].innerHTML = '<source src="files/music/' + music + '">';
 }
-function displayImage(imgSRC) {
-}
-function displayStat(){
-    let statWindow =document.getElementById('stat');
+
+function displayImage(imgSRC) {}
+
+function displayStat() {
+    let statWindow = document.getElementById('stat');
     statWindow.innerHTML =
-        '<p>strength: '+player.strength+'</p>' +
-        '<p>speed: '+player.speed+'</p>' +
-        '<p>defence: '+player.defence+'</p>' +
-        '<p>weapon: '+player.attack.name+'</p>';
+        '<tt><table cellspacing="0">' +
+        '<tr><td>str</td><td>'+ player.strength + '</td></tr>' +
+        '<tr><td>spd</td><td>' + player.speed + '</td></tr>' +
+        '<tr><td>def</td><td>' + player.defence + '</td></tr>' +
+        '<tr><td>wpn</td><td>' + player.attack.name + '</td><tr>'
+        + "</table></tt>";
 }

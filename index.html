@@ -1,53 +1,50 @@
-
 <html>
 
 <head>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="GlobalVar.js"></script>
-	<script src="WeaponClass.js"></script>
-	<script src="ZoneClass.js"></script>
-	<script src="ManClass.js"></script>
-	<script src="MonsterClass.js"></script>
-	<script src="NPCClass.js"></script>
-	<script src="PlayerClass.js"></script>
-	<script src="TechnicalShit.js"></script>
-	<script src="PlayerAction.js"></script>
-	<script src="UI.js"></script>
+    <script src="WeaponClass.js"></script>
+    <script src="ZoneClass.js"></script>
+    <script src="ManClass.js"></script>
+    <script src="MonsterClass.js"></script>
+    <script src="NPCClass.js"></script>
+    <script src="PlayerClass.js"></script>
+    <script src="TechnicalShit.js"></script>
+    <script src="PlayerAction.js"></script>
+    <script src="UI.js"></script>
 </head>
 
 <body>
-
-
-        <div id="createCharacter">
-            <iframe src="files/music/250-milliseconds-of-silence.mp3" allow="autoplay" id="audio" style="display:none"></iframe>
-            <audio loop autoplay>
-                <source src="files/music/Stellardrone-Eternity.mp3">
-            </audio>
-            <h1>Welcome to Infinity Dungeon</h1>
-            <h2>Where the ride never ends!</h2>
-            <h3 class="white">Create Your character!</h3>
-            <table align="center">
-                <tr>
-                    <td>
-                        <p>Name :</p>
-                    <td><input type="text" id="name"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <p>Class</p>
-                    </td>
-                    <td><select id="class">
-                            <option value="warrior">Warrior</option>
-                            <option value="barbarian">Barbarian</option>
-                            <option value="thief">Thief</option>
-                            <option value="monk">Monk</option>
-                        </select>
-                </tr>
-            </table>
-            <button onclick="printClass()">make character</button>
-            <p><a href="https://www.youtube.com/watch?v=m-0H4HOATOM">music source</a></p>
-        </div>
-
-
+    <div id="createCharacter">
+        <iframe src="files/music/250-milliseconds-of-silence.mp3" allow="autoplay" id="audio"
+            style="display:none"></iframe>
+        <audio loop autoplay>
+            <source src="files/music/Stellardrone-Eternity.mp3">
+        </audio>
+        <h1>Welcome to Infinity Dungeon</h1>
+        <h2>Where the ride never ends!</h2>
+        <h3 class="white">Create Your character!</h3>
+        <table align="center">
+            <tr>
+                <td>
+                    <p>Name:</p>
+                <td><input type="text" id="name"></td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Class</p>
+                </td>
+                <td><select id="class">
+                        <option value="warrior">Warrior</option>
+                        <option value="barbarian">Barbarian</option>
+                        <option value="thief">Thief</option>
+                        <option value="monk">Monk</option>
+                    </select>
+            </tr>
+        </table>
+        <button onclick="printClass()">make character</button>
+        <p><a href="https://www.youtube.com/watch?v=m-0H4HOATOM">music source</a></p>
+    </div>
 </body>
+
 </html>

@@ -5,7 +5,7 @@ class Zone {
         this.minLevel = 1;
         this.moveNumber = rng(5, 10);
         this.move = 0;
-        switch (this.zone){
+        switch (this.zone) {
             case 'forest':
                 this.npcPool = forestNPC;
                 this.monsterPool = forestPool;
@@ -36,9 +36,11 @@ const COMMON_MAX = 10;
 const UNCOMMON_MAX = 20;
 const RARE_MAX = 30;
 const LEGENDARY_MAX = 40;
-function generateNPC(){
+
+function generateNPC() {
 
 }
+
 function generateMonster(pool, level) {
     let rarityRoll = rng(1, LEGENDARY_MAX);
     let monster;
@@ -61,29 +63,29 @@ function generateMonster(pool, level) {
     let strMod = 0;
     let hpMod = 0;
     let xpMod = 1.0;
-    switch (monster.type){
+    switch (monster.type) {
         case 'small':
-             defMod = 1;
-             spdMod = 1;
-             strMod = 1;
-             hpMod = 1;
+            defMod = 1;
+            spdMod = 1;
+            strMod = 1;
+            hpMod = 1;
             break;
         case 'normal':
-             defMod = 1;
-             spdMod = 1;
-             strMod = 1;
-             hpMod = 1;
+            defMod = 1;
+            spdMod = 1;
+            strMod = 1;
+            hpMod = 1;
             break;
         case 'big':
-             defMod = 1;
-             spdMod = 1;
-             strMod = 1;
+            defMod = 1;
+            spdMod = 1;
+            strMod = 1;
             hpMod = 1;
             break;
         case 'bug':
-             defMod = 1;
-             spdMod = 1;
-             strMod = 1;
+            defMod = 1;
+            spdMod = 1;
+            strMod = 1;
             hpMod = 1;
             break;
         case 'animal':
@@ -93,9 +95,9 @@ function generateMonster(pool, level) {
             hpMod = 1;
             break;
         default:
-             defMod = 1;
-             spdMod = 1;
-             strMod = 1;
+            defMod = 1;
+            spdMod = 1;
+            strMod = 1;
             hpMod = 1;
             break;
     }
@@ -109,6 +111,6 @@ function generateMonster(pool, level) {
     let weaponn = weapons[rng(0, weapons.length - 1)];
     let attack = new weapon(weaponn[0], weaponn[1], weaponn[2]);
     let exp = xpMod * baseMonster.xp;
-     monster = new Monster(name, type, hp, defence, speed, strength, attack, exp, level,monster.jokes);
+    monster = new Monster(name, type, hp, defence, speed, strength, attack, exp, level, monster.jokes);
     return monster;
 }
