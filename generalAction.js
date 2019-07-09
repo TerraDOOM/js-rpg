@@ -79,7 +79,6 @@ function generateMonster(pool, level) {
     monster = new Monster(name, type, hp, defence, speed, strength, attack, exp, level,monster.jokes);
     return monster;
 }
-
 function generateArmor(){
     let mat = randomChoice(materiel);
     let typ = randomChoice(typeArmor);
