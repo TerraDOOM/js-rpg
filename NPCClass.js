@@ -9,7 +9,7 @@ class NPC extends Man {
         let strength = rng(1, 20);
         let attack = new weapon("club", 5, 'blunt');
         let exp = Math.floor((defence * speed * strength) / 3);
-        super(name, type, hp, defence, speed, strength, attack, exp);
+        super(name, type, hp, defence, speed, strength, attack, exp,"","","");
         this.jokes =  zone.npcPool[0].jokes;
         this.greetings = zone.npcPool[0].greetings;
     }

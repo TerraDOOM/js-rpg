@@ -18,7 +18,8 @@ function baseAptitudeFromLevel(level) {
         console.log("level is <= 0, this shouldn't happen, setting level to 1");
         level = 1;
     }
-    let baseXp = Math.floor((xpForNextLevel(level) - xpForNextLevel(level - 1)) / (10 * Math.log(level + 1)));
+    let baseXp = Math.floor((xpForNextLevel(10) - xpForNextLevel(9)) / (10 * Math.log(11)));
+    console.log(baseXp);
     let baseSkill = Math.floor(10 * Math.sqrt(level));
     return {
         strength: baseSkill,

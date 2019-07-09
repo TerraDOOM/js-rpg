@@ -140,3 +140,5 @@ const weapons = [
     ['sword', 10, 'cut'],
     ['bow', 10, 'ranged']
 ];
+const materiel = ["iron","leather","gold"];
+const typeArmor = ["pants","helmet","shirt"];
