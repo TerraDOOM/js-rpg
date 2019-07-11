@@ -3,6 +3,8 @@ let monster = "";
 let currentEvent = "";
 let zone = "";
 let npc = "";
+let map = "";
+let subMap = "";
 const forestNPC = [{
     name: 'bee the fairy',
     greetings: ['hello traveler how are you doing on this fine day :D'],

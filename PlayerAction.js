@@ -174,6 +174,44 @@ function npcRest(){
 function npcTalk(){
     consoleGame(param=[npc.jokes[rng(0, npc.jokes.length - 1)]]);
 }
+function armorWear(armor){
+    switch (armor.type) {
+        case 'pants':
+            player.pants = armor;
+            break;
+        case'shirt':
+            player.shirt = armor;
+            break;
+        case'helmet':
+            player.helmet = armor;
+            break;
+        default:
+            console.log("problem detected");
+            break;
+    }
+}
+function armorRemove(armor){
+    switch (armor) {
+        case 'pants':
+            player.pants = "";
+            break;
+        case'shirt':
+            player.shirt = "";
+            break;
+        case'helmet':
+            player.helmet = "";
+            break;
+        default:
+            console.log("problem detected");
+            break;
+    }
+}
+function weaponHold(weapon){
+    player.attack = weapon;
+}
+function weaponDrop() {
+    player.attack = "";
+}
 //game over
 function gameOver(causeOfDeath) {
     consoleGame(param=['______________GAME OVER_____________']);

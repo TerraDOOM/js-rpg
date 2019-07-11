@@ -95,6 +95,7 @@ function printClass() {
             break;
     }
     setUpGame();
+    map = generateMap();
     zone = new Zone();
     player = new Player(name, type, hp, defence, speed, strength, attack);
     displayStat();
