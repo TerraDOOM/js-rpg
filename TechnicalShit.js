@@ -2,7 +2,10 @@
 function rng(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
+// pick a random element from an array
+function randomChoice(array) {
+    return array[rng(0, array.length - 1)];
+}
 //calculates the % of a in b
 function percentage(a, b) {
     return (a / b) * 100;
@@ -42,7 +45,3 @@ function fib(n) {
 }
 
 
-// pick a random element from an array
-function randomChoice(array) {
-    return array[rng(0, array.length - 1)];
-}
