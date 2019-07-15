@@ -38,12 +38,12 @@
                     if (playerPositionX === i && playerPositionY === j) {
                         node = document.createTextNode('PLAY');
                     } else {
-                        if (typeof mapToShow[i][j] === 'object') {
+                        if (mapToShow[i][j] instanceof  specialGridClass) {
                             node = document.createElement('img');
                             node.src = mapToShow[i][j].type+".png";
                         } else {
                             node = document.createElement('img');
-                            node.src = mapToShow[i][j]+".png";
+                            node.src = mapToShow[i][j].name+".png";
                         }
                     }
                     node.style = "overflow: auto;";
@@ -57,12 +57,47 @@
                 }
             }
         }
+        function displayMiniMap() {
+            let mapToShow = map;
+            if (subMap !== null){
+                mapToShow = subMap;
+            }
+            for (let i = 0; i < mapToShow.length; i++) {
+                let element = document.getElementsByTagName("body");
+                let para = document.createElement("header");
+                para.style = "display: flex; min-width:100; min-height: 100;";
+                element[0].appendChild(para);
+                for (let j = 0; j < mapToShow[0].length; j++) {
+                    let para = document.createElement("div");
+                    para.style ="min-width:10; min-height: 10;";
+                    if (playerPositionX === i && playerPositionY === j) {
+                        para.style = "background-color:green;";
+                    } else {
+                        if (mapToShow[i][j] instanceof  specialGridClass) {
+                            para.style = "background-color:RED;";
+                        } else {
+                            para.style = "background-color:"+mapToShow[i][j].color+";";
+                        }
+                    }
+                    para.onclick = function () {
+                        moveplayer(i, j)
+                    };
+                    let element = document.getElementsByTagName('div');
+                    element[i].appendChild(para);
 
+                }
+            }
+        }
         function moveplayer(x, y) {
-            if(typeof map[x][y] === 'object'){
+            if( map[x][y] instanceof  specialGridClass){
                 playerPositionX = 0;
                 playerPositionY = 0;
                 subMap = map[x][y].getMap();
+            }
+            else if(subMap !==null && subMap[x][y].name === "exit"){
+                playerPositionX = 0;
+                playerPositionY = 0;
+                subMap = null;
             }
             else {
                 playerPositionX = x;
